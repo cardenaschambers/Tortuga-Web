@@ -1,0 +1,1943 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="./Iconos/logoTortugaNegro.svg" type="image/png">
+    <title>La Tortuga Ayampe | Hotel</title>
+    <meta name="description" content="Tu refugio frente al mar en Ayampe, Manabí, Ecuador (Km 86 Ruta del Spondylus). Cabañas frente al mar, Suites, Bungalows, Casas y SPA en jardines tropicales.">
+    
+    <!-- Google Fonts: Cormorant Garamond (Serif) & Plus Jakarta Sans (Sans-serif) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        sand: '#FAF7F2',
+                        bone: '#FFFFFF',
+                        jungle: '#1E3F32',
+                        jungleLight: '#2B5645',
+                        terracotta: '#B86B4B',
+                        terracottaDark: '#9E583B',
+                        gold: '#D4A373',
+                        goldLight: '#E9C8A6',
+                        charcoal: '#242926'
+                    },
+                    fontFamily: {
+                        serif: ['"Cormorant Garamond"', 'Georgia', 'serif'],
+                        sans: ['"Plus Jakarta Sans"', 'system-ui', 'sans-serif']
+                    },
+                    boxShadow: {
+                        'soft': '0 20px 40px -15px rgba(30, 63, 50, 0.08)',
+                        'floating': '0 25px 50px -12px rgba(30, 63, 50, 0.18)'
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Custom subtle animations and utilities */
+        @keyframes slowZoom {
+            0% { transform: scale(1); }
+            100% { transform: scale(1.08); }
+        }
+        .animate-slow-zoom {
+            animation: slowZoom 22s ease-in-out infinite alternate;
+        }
+        .glass-nav {
+            background: rgba(250, 247, 242, 0.92);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+        .panorama-viewport {
+            cursor: grab;
+            user-select: none;
+            overflow: hidden;
+            position: relative;
+        }
+        .panorama-viewport:active {
+            cursor: grabbing;
+        }
+        /* Hide scrollbars cleanly where needed */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+</head>
+<body class="bg-sand text-charcoal font-sans antialiased selection:bg-jungle selection:text-bone">
+
+    <!-- ==================== STICKY NAVBAR ==================== -->
+    <header id="navbar" class="fixed top-0 left-0 right-0 z-40 transition-all duration-300 py-4 px-4 sm:px-8 text-bone">
+        <div class="max-w-7xl mx-auto flex items-center justify-between">
+            <!-- Brand Logo -->
+            <a href="#inicio" class="flex items-center gap-3 group">
+                <div id="logo-badge" class="w-11 h-11 flex items-center justify-center !bg-transparent">
+                    <img id="logosvg" src="./Iconos/logoTortugaBlanco.svg" alt="Logo Tortuga Blanco" width="1100" height="110" class="transition duration-300">
+                </div>
+                <div>
+                    <span class="font-serif text-2xl font-semibold tracking-wide block leading-none">LA TORTUGA</span>
+                    <span class="text-[10px] uppercase tracking-[0.26em] text-gold font-medium block mt-0.5">Ayampe · Manabí · Ecuador</span>
+                </div>
+            </a>
+
+            <!-- Desktop Navigation -->
+            <nav class="hidden lg:flex items-center gap-8 text-sm font-medium">
+                <a href="#alojamientos" class="hover:text-gold transition-colors" data-i18n="nav_accommodations">Alojamientos</a>
+                <a href="#spa" class="hover:text-gold transition-colors" data-i18n="nav_spa">SPA</a>
+                <a href="#experiencias" class="hover:text-gold transition-colors" data-i18n="nav_experiences">Experiencias</a>
+                <a href="#restaurantes" class="hover:text-gold transition-colors" data-i18n="nav_restaurants">Restaurantes</a>
+                <a href="#instalaciones" class="hover:text-gold transition-colors" data-i18n="nav_instalations">Instalaciones</a>
+                <a href="#ubicacion" class="hover:text-gold transition-colors" data-i18n="nav_location">Ubicación & Contacto</a>
+            </nav>
+
+            <!-- Right Actions: Language Toggle + CTA + Mobile Menu -->
+            <div class="flex items-center gap-3">
+                <!-- Language Switcher ES / EN -->
+                <button id="lang-toggle" onclick="toggleLanguage()" aria-label="Cambiar idioma" class="px-3 py-1.5 rounded-full border border-current/30 text-xs font-semibold tracking-wider hover:border-gold hover:text-gold transition-all flex items-center gap-1.5">
+                    <i class="fa-solid fa-globe text-[11px]"></i>
+                    <span id="lang-label">ES | EN</span>
+                </button>
+
+                <!-- Quick WhatsApp Button Desktop -->
+                <button onclick="openWhatsappMenu()" class="hidden sm:inline-flex items-center gap-2 bg-terracotta hover:bg-terracottaDark text-bone text-xs font-semibold px-4 py-2.5 rounded-full shadow-md transition-all">
+                    <i class="fa-brands fa-whatsapp text-base"></i>
+                    <span data-i18n="nav_book">Reservar</span>
+                </button>
+
+                <!-- Mobile Hamburger -->
+                <button id="mobile-menu-btn" onclick="toggleMobileMenu()" aria-label="Menú" class="lg:hidden p-2.5 rounded-xl border border-current/25 hover:border-gold transition-colors">
+                    <i class="fa-solid fa-bars text-lg"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Drawer -->
+        <div id="mobile-menu" class="hidden lg:hidden mt-4 bg-bone text-charcoal rounded-2xl p-6 shadow-floating border border-jungle/10">
+            <div class="flex flex-col space-y-4 text-base font-medium">
+                <a href="#esencia" onclick="toggleMobileMenu()" class="py-1.5 border-b border-sand hover:text-terracotta" data-i18n="nav_essence">Esencia</a>
+                <a href="#alojamientos" onclick="toggleMobileMenu()" class="py-1.5 border-b border-sand hover:text-terracotta" data-i18n="nav_accommodations">Alojamientos</a>
+                <a href="#spa" onclick="toggleMobileMenu()" class="py-1.5 border-b border-sand hover:text-terracotta" data-i18n="nav_spa">SPA</a>
+                <a href="#experiencias" onclick="toggleMobileMenu()" class="py-1.5 border-b border-sand hover:text-terracotta" data-i18n="nav_experiences">Experiencias</a>
+                <a href="#ubicacion" onclick="toggleMobileMenu()" class="py-1.5 hover:text-terracotta" data-i18n="nav_location">Ubicación & Contacto</a>
+                <button onclick="toggleMobileMenu(); openWhatsappMenu()" class="w-full mt-2 bg-jungle text-bone py-3 rounded-xl font-semibold flex items-center justify-center gap-2">
+                    <i class="fa-brands fa-whatsapp text-lg text-gold"></i>
+                    <span data-i18n="nav_book_direct">Reservar por WhatsApp</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- ==================== 1. HERO SECTION INMERSIVA ==================== -->
+    <section id="inicio" class="relative min-h-screen flex flex-col justify-between pt-28 pb-10 px-4 sm:px-8 overflow-hidden">
+        <!-- Background Image with Slow Zoom -->
+        <div class="absolute inset-0 z-0">
+            <img src="./Fotos/Varios/Varios1.jpg" 
+                 onerror="this.src='https://placehold.co/1920x1080/1E3F32/FAF7F2?text=La+Tortuga+Ayampe'"
+                 alt="Playa tropical de Ayampe al atardecer frente a La Tortuga" 
+                 class="w-full h-full object-cover animate-slow-zoom">
+            <div class="absolute inset-0 bg-gradient-to-b from-jungle/75 via-jungle/45 to-jungle/85"></div>
+        </div>
+
+        <!-- Hero Main Copy -->
+        <div class="relative z-10 max-w-5xl mx-auto text-center my-auto pt-8 pb-10">
+            <span class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-bone/15 backdrop-blur-md border border-bone/25 text-goldLight text-xs uppercase tracking-[0.22em] font-medium mb-6">
+                <i class="fa-solid fa-location-dot text-gold"></i>
+                <span data-i18n="hero_badge">Km 86 Ruta del Spondylus · Ayampe, Manabí</span>
+            </span>
+
+            <h1 class="font-serif text-4xl sm:text-6xl lg:text-7xl text-bone font-semibold leading-[1.08] tracking-tight mb-6" data-i18n="hero_title">
+                Tu refugio frente al mar en Ayampe
+            </h1>
+
+            <p class="max-w-2xl mx-auto text-bone/90 text-base sm:text-lg lg:text-xl font-light leading-relaxed mb-9" data-i18n="hero_subtitle">
+                Donde la selva húmeda del Pacífico abraza las olas. Despierta con el sonido del océano en nuestras cabañas frente a la playa, suites rodeadas de jardines tropicales y un spa privado diseñado para renovar cuerpo y alma.
+            </p>
+
+            <!-- Hero Action Buttons -->
+            <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+                <a href="#alojamientos" class="w-full sm:w-auto px-8 py-4 rounded-full bg-bone text-jungle hover:bg-sand font-semibold text-sm tracking-wide transition-all shadow-lg flex items-center justify-center gap-2">
+                    <span data-i18n="hero_cta_explore">Explorar Alojamientos</span>
+                    <i class="fa-solid fa-arrow-down text-xs text-terracotta"></i>
+                </a>
+                <button onclick="openWhatsappMenu()" class="w-full sm:w-auto px-8 py-4 rounded-full bg-terracotta hover:bg-terracottaDark text-bone font-semibold text-sm tracking-wide transition-all shadow-lg flex items-center justify-center gap-2.5">
+                    <i class="fa-brands fa-whatsapp text-lg"></i>
+                    <span data-i18n="hero_cta_whatsapp">Reservar por WhatsApp</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Quick Availability Search Bar (Sends prefilled WhatsApp message) -->
+        <div class="relative z-10 max-w-6xl mx-auto w-full">
+            <form id="availability-form" onsubmit="handleAvailabilitySubmit(event)" class="bg-bone/95 backdrop-blur-md rounded-3xl p-4 sm:p-6 shadow-floating border border-gold/30">
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 items-end">
+                    <!-- Check-in -->
+                    <div>
+                        <label for="checkin" class="block text-[11px] font-bold uppercase tracking-wider text-jungle/75 mb-1.5" data-i18n="search_checkin">Fecha de llegada</label>
+                        <div class="relative">
+                            <input type="date" id="checkin" required class="w-full bg-sand border border-jungle/15 rounded-xl px-3.5 py-3 text-sm text-charcoal font-medium focus:outline-none focus:border-terracotta">
+                        </div>
+                    </div>
+
+                    <!-- Check-out -->
+                    <div>
+                        <label for="checkout" class="block text-[11px] font-bold uppercase tracking-wider text-jungle/75 mb-1.5" data-i18n="search_checkout">Fecha de salida</label>
+                        <div class="relative">
+                            <input type="date" id="checkout" required class="w-full bg-sand border border-jungle/15 rounded-xl px-3.5 py-3 text-sm text-charcoal font-medium focus:outline-none focus:border-terracotta">
+                        </div>
+                    </div>
+
+                    <!-- Guests -->
+                    <div>
+                        <label for="guests" class="block text-[11px] font-bold uppercase tracking-wider text-jungle/75 mb-1.5" data-i18n="search_guests">Huéspedes</label>
+                        <select id="guests" class="w-full bg-sand border border-jungle/15 rounded-xl px-3.5 py-3 text-sm text-charcoal font-medium focus:outline-none focus:border-terracotta">
+                            <option value="2 Adultos (Pareja)">2 Adultos (Pareja)</option>
+                            <option value="1 Adulto">1 Adulto</option>
+                            <option value="3 Huéspedes">3 Huéspedes</option>
+                            <option value="4 Huéspedes (Familia)">4 Huéspedes (Familia)</option>
+                            <option value="5+ Huéspedes (Grupo/Familia)">5+ Huéspedes (Grupo/Familia)</option>
+                        </select>
+                    </div>
+
+                    <!-- Submit CTA -->
+                    <div>
+                        <button type="submit" class="w-full bg-jungle hover:bg-jungleLight text-bone font-semibold text-sm py-3.5 px-5 rounded-xl transition-all shadow-md flex items-center justify-center gap-2">
+                            <i class="fa-brands fa-whatsapp text-gold text-base"></i>
+                            <span data-i18n="search_btn">Consultar Tarifa</span>
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </section>
+
+    <!-- ==================== 2. ESENCIA & BIENVENIDA ==================== -->
+    <section id="esencia" class="py-20 sm:py-28 px-4 sm:px-8 bg-sand">
+        <div class="max-w-7xl mx-auto">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+                
+                <!-- Left Image Collage (4 Fotos Asimétricas) -->
+                <div class="lg:col-span-6 relative">
+                    <div class="grid grid-cols-12 gap-3.5 sm:gap-4 items-stretch">
+                        
+                        <!-- Columna Izquierda -->
+                        <div class="col-span-7 flex flex-col gap-3.5 sm:gap-4">
+                            <div class="relative group overflow-hidden rounded-3xl shadow-soft">
+                                <img src="./Fotos/Varios/Varios8.png" 
+                                    onerror="this.src='https://placehold.co/600x700/1E3F32/FAF7F2?text=Varios+3'"
+                                    alt="Cabañas de madera rodeadas de palmeras en Ayampe" 
+                                    class="w-full h-64 sm:h-80 object-cover group-hover:scale-105 transition-transform duration-700">
+                            </div>
+                            <div class="relative group overflow-hidden rounded-3xl shadow-soft">
+                                <img src="./Fotos/Varios/Varios2.jpg" 
+                                    onerror="this.src='https://placehold.co/600x400/2B5645/FAF7F2?text=Varios+1'"
+                                    alt="Jardines tropicales y caminos en La Tortuga Ayampe" 
+                                    class="w-full h-44 sm:h-52 object-cover group-hover:scale-105 transition-transform duration-700">
+                            </div>
+                        </div>
+
+                        <!-- Columna Derecha -->
+                        <div class="col-span-5 flex flex-col gap-3.5 sm:gap-4">
+                            <div class="relative group overflow-hidden rounded-3xl shadow-soft">
+                                <img src="./Fotos/Varios/Varios9.png" 
+                                    onerror="this.src='https://placehold.co/500x400/B86B4B/FAF7F2?text=Varios+2'"
+                                    alt="Interior cálido y natural de suite" 
+                                    class="w-full h-44 sm:h-56 object-cover group-hover:scale-105 transition-transform duration-700">
+                            </div>
+                            <div class="relative group overflow-hidden rounded-3xl shadow-soft flex-1">
+                                <img src="./Fotos/Varios/Varios4.jpg" 
+                                    onerror="this.src='https://placehold.co/500x400/D4A373/242926?text=Varios+4'"
+                                    alt="Vista al mar y descanso en Ayampe" 
+                                    class="w-full h-48 sm:h-full object-cover group-hover:scale-105 transition-transform duration-700">
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- Right Narrative & 3 Pillars -->
+                <div class="lg:col-span-6">
+                    <span class="text-xs font-bold uppercase tracking-[0.24em] text-terracotta block mb-3" data-i18n="essence_eyebrow">Nuestra Esencia</span>
+                    <h2 class="font-serif text-3xl sm:text-5xl text-jungle font-semibold leading-tight mb-6" data-i18n="essence_title">
+                        Un santuario costero donde el tiempo fluye al ritmo de las mareas
+                    </h2>
+                    <p class="text-charcoal/80 text-base sm:text-lg leading-relaxed mb-5" data-i18n="essence_p1">
+                        En el corazón de Ayampe —un apacible pueblo pesquero y santuario natural de Manabí— <strong>La Tortuga Ayampe</strong> nace con una filosofía clara: ofrecer hospitalidad cálida, arquitectura orgánica en madera y descanso sin prisas frente al océano.
+                    </p>
+                    <p class="text-charcoal/80 text-base leading-relaxed mb-10" data-i18n="essence_p2">
+                        Ya sea que busques despertar a pasos de la arena, compartir en familia en nuestros bungalows equipados o sumergirte en la privacidad de nuestro Spa rodeado de jardines tropicales, aquí encuentras tu lugar.
+                    </p>
+
+                    <!-- Three Pillars: Relax, Confort, Naturaleza -->
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-5">
+                        <div class="bg-bone p-5 rounded-2xl border border-jungle/10 shadow-sm transition-colors">
+                            <div class="w-11 h-11 rounded-xl bg-sand flex items-center justify-center text-terracotta mb-4">
+                                <i class="fa-solid fa-spa text-lg"></i>
+                            </div>
+                            <h3 class="font-serif text-2xl font-semibold text-jungle mb-1.5" data-i18n="pillar_relax_title">Relax</h3>
+                            <p class="text-xs text-charcoal/75 leading-relaxed" data-i18n="pillar_relax_desc">Silencio costero, hamacas frente al mar y circuitos privados de bienestar.</p>
+                        </div>
+
+                        <div class="bg-bone p-5 rounded-2xl border border-jungle/10 shadow-sm transition-colors">
+                            <div class="w-11 h-11 rounded-xl bg-sand flex items-center justify-center text-terracotta mb-4">
+                                <i class="fa-solid fa-bed text-lg"></i>
+                            </div>
+                            <h3 class="font-serif text-2xl font-semibold text-jungle mb-1.5" data-i18n="pillar_comfort_title">Confort</h3>
+                            <p class="text-xs text-charcoal/75 leading-relaxed" data-i18n="pillar_comfort_desc">Espacios acogedores en maderas nobles con detalles pensados para tu descanso.</p>
+                        </div>
+
+                        <div class="bg-bone p-5 rounded-2xl border border-jungle/10 shadow-sm transition-colors">
+                            <div class="w-11 h-11 rounded-xl bg-sand flex items-center justify-center text-terracotta mb-4">
+                                <i class="fa-solid fa-leaf text-lg"></i>
+                            </div>
+                            <h3 class="font-serif text-2xl font-semibold text-jungle mb-1.5" data-i18n="pillar_nature_title">Naturaleza</h3>
+                            <p class="text-xs text-charcoal/75 leading-relaxed" data-i18n="pillar_nature_desc">Jardines exuberantes, avistamiento de aves y acceso directo a la playa.</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    
+    <!-- ==================== 3. ALOJAMIENTOS (INTERACTIVE FILTERING) ==================== -->
+    <section id="alojamientos" class="py-20 sm:py-28 px-4 sm:px-8 bg-bone">
+        <div class="max-w-7xl mx-auto">
+            <!-- Section Header -->
+            <div class="text-center max-w-3xl mx-auto mb-12">
+                <span class="text-xs font-bold uppercase tracking-[0.24em] text-terracotta block mb-3" data-i18n="acc_eyebrow">Nuestros Espacios</span>
+                <h2 class="font-serif text-3xl sm:text-5xl text-jungle font-semibold mb-4" data-i18n="acc_title">Alojamientos para cada estilo de viaje</h2>
+                <p class="text-charcoal/75 text-base sm:text-lg" data-i18n="acc_subtitle">
+                    Desde cabañas rústico-elegantes sobre la arena hasta casas con vistas panorámicas a los islotes de Los Ahorcados.
+                </p>
+            </div>
+
+            <!-- Category Filter Tabs -->
+            <div class="flex flex-wrap items-center justify-center gap-2.5 sm:gap-3 mb-12" role="tablist">
+                <button onclick="filterAccommodations('all')" data-filter="all" class="filter-tab active px-5 py-2.5 rounded-full text-xs sm:text-sm font-semibold transition-all bg-jungle text-bone shadow-sm">
+                    <span data-i18n="tab_all">Todos (4)</span>
+                </button>
+                <button onclick="filterAccommodations('cabanas')" data-filter="cabanas" class="filter-tab px-5 py-2.5 rounded-full text-xs sm:text-sm font-semibold transition-all bg-sand text-jungle hover:bg-goldLight/40">
+                    <span data-i18n="tab_cabanas">Cabañas frente al mar</span>
+                </button>
+                <button onclick="filterAccommodations('suites')" data-filter="suites" class="filter-tab px-5 py-2.5 rounded-full text-xs sm:text-sm font-semibold transition-all bg-sand text-jungle hover:bg-goldLight/40">
+                    <span data-i18n="tab_suites">Suites</span>
+                </button>
+                <button onclick="filterAccommodations('bungalows')" data-filter="bungalows" class="filter-tab px-5 py-2.5 rounded-full text-xs sm:text-sm font-semibold transition-all bg-sand text-jungle hover:bg-goldLight/40">
+                    <span data-i18n="tab_bungalows">Bungalows</span>
+                </button>
+                <button onclick="filterAccommodations('casas')" data-filter="casas" class="filter-tab px-5 py-2.5 rounded-full text-xs sm:text-sm font-semibold transition-all bg-sand text-jungle hover:bg-goldLight/40">
+                    <span data-i18n="tab_casas">Casas Los Ñaños</span>
+                </button>
+            </div>
+
+            <!-- Accommodations Grid (Rendered dynamically via JS for clean bilingual + modal support) -->
+            <div id="accommodations-grid" class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <!-- Cards injected by JS -->
+            </div>
+        </div>
+    </section>
+
+    
+    <!-- ==================== 4. SECCIÓN EXCLUSIVA SPA LA TORTUGA ==================== -->
+<section id="spa" class="py-20 sm:py-28 px-4 sm:px-8 bg-jungle text-bone relative overflow-hidden">
+    <!-- Decorative Subtle Background Leaf Pattern -->
+    <div class="absolute top-0 right-0 w-96 h-96 bg-gold/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/3 pointer-events-none"></div>
+    <div class="absolute bottom-0 left-0 w-96 h-96 bg-terracotta/10 rounded-full blur-3xl translate-y-1/2 -translate-x-1/3 pointer-events-none"></div>
+
+    <div class="max-w-7xl mx-auto relative z-10">
+        <!-- Top Row: Intro + Tour Card Trigger -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center mb-16">
+            <div class="lg:col-span-7">
+                <span class="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.24em] text-gold mb-3">
+                    <i class="fa-solid fa-sparkles"></i>
+                    <span data-i18n="spa_eyebrow">Bienestar Exclusivo & Privacidad</span>
+                </span>
+                <h2 class="font-serif text-3xl sm:text-5xl lg:text-6xl font-semibold leading-tight mb-6" data-i18n="spa_title">
+                    SPA La Tortuga: Un oasis privado entre jardines tropicales
+                </h2>
+                <p class="text-bone/85 text-base sm:text-lg leading-relaxed mb-8 max-w-2xl" data-i18n="spa_desc">
+                    Rodeado de vegetación exuberante y diseñado bajo un concepto de privacidad absoluta, nuestro Spa opera mediante reservas exclusivas para que disfrutes cada terapia en total armonía con la naturaleza de Ayampe.
+                </p>
+
+                <div class="flex flex-wrap items-center gap-4">
+                    <a href="https://wa.me/593986157698?text=Hola%20SPA%20La%20Tortuga%20Ayampe%2C%20me%20gustar%C3%ADa%20agendar%20una%20sesi%C3%B3n%20de%20Spa." 
+                       target="_blank" rel="noopener noreferrer"
+                       class="px-7 py-4 rounded-full bg-gold hover:bg-goldLight text-jungle font-bold text-sm tracking-wide transition-all shadow-lg inline-flex items-center gap-2.5">
+                        <i class="fa-brands fa-whatsapp text-lg"></i>
+                        <span data-i18n="spa_cta_book">Agendar sesión de Spa</span>
+                    </a>
+
+                    <!-- Enlace directo oficial que abre el Tour 360 sin errores -->
+                    <a href="https://www.viewmake.com/en/demo/ed5b8ba587688c4614d0debac2966b8d" 
+                       target="_blank" rel="noopener noreferrer"
+                       class="px-7 py-4 rounded-full bg-bone/10 hover:bg-bone/20 border border-bone/30 text-bone font-semibold text-sm tracking-wide transition-all inline-flex items-center gap-2.5 hover:border-gold">
+                        <i class="fa-solid fa-vr-cardboard text-gold"></i>
+                        <span>Tour 360° del Spa (Pantalla Completa)</span>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Tarjeta Preview Interactiva -->
+            <div class="lg:col-span-5">
+                <a href="https://www.viewmake.com/en/demo/ed5b8ba587688c4614d0debac2966b8d" target="_blank" rel="noopener noreferrer" class="group relative block rounded-3xl overflow-hidden border border-gold/30 shadow-floating cursor-pointer">
+                    <img src="./Fotos/Spa/Spa2.png" 
+                         onerror="this.src='https://placehold.co/800x600/2B5645/D4A373?text=Tour+360+SPA+La+Tortuga'"
+                         alt="SPA La Tortuga en jardines tropicales" 
+                         class="w-full h-72 sm:h-80 object-cover group-hover:scale-105 transition-transform duration-700">
+                    <div class="absolute inset-0 bg-gradient-to-t from-jungle via-jungle/30 to-transparent"></div>
+                    <div class="absolute inset-0 flex flex-col items-center justify-center p-6 text-center">
+                        <div class="w-16 h-16 rounded-full bg-gold/95 text-jungle flex items-center justify-center shadow-xl mb-3 group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-arrows-left-right-to-line text-xl"></i>
+                        </div>
+                        <p class="font-serif text-2xl font-semibold text-bone">Iniciar Recorrido Virtual 360°</p>
+                        <span class="text-xs text-goldLight mt-1 underline">Click para abrir la experiencia</span>
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        <!-- 3 Interactive Spa Service Blocks -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-7">
+            <!-- Bloque 1 -->
+            <div class="bg-jungleLight/70 backdrop-blur-sm border border-bone/15 rounded-3xl overflow-hidden hover:border-gold/60 transition-all flex flex-col justify-between">
+                <div>
+                    <!-- Foto superior con transición suave al fondo de la tarjeta -->
+                    <div class="relative h-48 overflow-hidden">
+                        <img src="./Fotos/Spa/Spa1.png"
+                             onerror="this.src='https://placehold.co/800x500/2B5645/FAF7F2?text=Plataforma+Wellness+3+en+1'"
+                             alt="Plataforma Wellness 3 en 1 en SPA La Tortuga"
+                             class="w-full h-full object-cover hover:scale-105 transition-transform duration-700">
+                        <div class="absolute inset-0 bg-gradient-to-t from-[#1E3F32] via-transparent to-transparent pointer-events-none"></div>
+                    </div>
+
+                    <div class="p-7 pt-5">
+                        <div class="flex items-center justify-between mb-4">
+                            <div class="w-11 h-11 rounded-2xl bg-gold/15 text-gold flex items-center justify-center">
+                                <i class="fa-solid fa-hot-tub-person text-lg"></i>
+                            </div>
+                            <span class="text-[11px] font-bold uppercase tracking-wider px-3 py-1 rounded-full bg-gold/20 text-goldLight">Uso Exclusivo</span>
+                        </div>
+                        <h3 class="font-serif text-2xl sm:text-3xl font-semibold text-bone mb-3">Plataforma Wellness 3 en 1</h3>
+                        <p class="text-sm text-bone/80 leading-relaxed">
+                            Circuito hidrotermal privado por reserva: combina <strong>sauna, baño de vapor e hidromasaje</strong> al aire libre, complementado con <strong>tina de agua fría</strong> y zona de exfoliación natural.
+                        </p>
+                    </div>
+                </div>
+                <div class="px-7 py-4 border-t border-bone/10 flex items-center justify-between text-xs text-goldLight">
+                    <span><i class="fa-regular fa-clock mr-1.5"></i>Sesión privada por reserva</span>
+                    <a href="https://wa.me/593986157698?text=Hola%20SPA%20La%20Tortuga%2C%20quisiera%20reservar%20la%20Plataforma%20Wellness%203%20en%201." target="_blank" rel="noopener noreferrer" class="underline hover:text-bone font-semibold">Reservar →</a>
+                </div>
+            </div>
+
+            <!-- Bloque 2 -->
+            <div class="bg-jungleLight/70 backdrop-blur-sm border border-bone/15 rounded-3xl overflow-hidden hover:border-gold/60 transition-all flex flex-col justify-between">
+                <div>
+                    <!-- Foto superior con transición suave al fondo de la tarjeta -->
+                    <div class="relative h-48 overflow-hidden">
+                        <img src="./Fotos/Spa/Spa2.png"
+                             onerror="this.src='https://placehold.co/800x500/2B5645/FAF7F2?text=Sala+de+Masajes+y+Terapias'"
+                             alt="Sala de Masajes y Terapias en SPA La Tortuga"
+                             class="w-full h-full object-cover hover:scale-105 transition-transform duration-700">
+                        <div class="absolute inset-0 bg-gradient-to-t from-[#1E3F32] via-transparent to-transparent pointer-events-none"></div>
+                    </div>
+
+                    <div class="p-7 pt-5">
+                        <div class="flex items-center justify-between mb-4">
+                            <div class="w-11 h-11 rounded-2xl bg-gold/15 text-gold flex items-center justify-center">
+                                <i class="fa-solid fa-hands-holding-circle text-lg"></i>
+                            </div>
+                            <span class="text-[11px] font-bold uppercase tracking-wider px-3 py-1 rounded-full bg-bone/10 text-bone/90">30 / 60 min</span>
+                        </div>
+                        <h3 class="font-serif text-2xl sm:text-3xl font-semibold text-bone mb-3">Sala de Masajes y Terapias</h3>
+                        <p class="text-sm text-bone/80 leading-relaxed">
+                            Terapias personalizadas con aceites esenciales orgánicos: <strong>masajes relajantes y terapéuticos</strong> de 30 o 60 minutos, tratamientos faciales y sesiones de reflexología podal.
+                        </p>
+                    </div>
+                </div>
+                <div class="px-7 py-4 border-t border-bone/10 flex items-center justify-between text-xs text-goldLight">
+                    <span><i class="fa-solid fa-leaf mr-1.5"></i>Aromaterapia natural</span>
+                    <a href="https://wa.me/593986157698?text=Hola%20SPA%20La%20Tortuga%2C%20quisiera%20agendar%20un%20Masaje%20o%20Terapia." target="_blank" rel="noopener noreferrer" class="underline hover:text-bone font-semibold">Reservar →</a>
+                </div>
+            </div>
+
+            <!-- Bloque 3 -->
+            <div class="bg-jungleLight/70 backdrop-blur-sm border border-bone/15 rounded-3xl overflow-hidden hover:border-gold/60 transition-all flex flex-col justify-between">
+                <div>
+                    <!-- Foto superior con transición suave al fondo de la tarjeta -->
+                    <div class="relative h-48 overflow-hidden">
+                        <img src="./Fotos/Spa/Manicure.jpg"
+                             onerror="this.src='https://placehold.co/800x500/2B5645/FAF7F2?text=Manicure+y+Pedicure'"
+                             alt="Sala de Manicure y Pedicure en SPA La Tortuga"
+                             class="w-full h-full object-cover hover:scale-105 transition-transform duration-700">
+                        <div class="absolute inset-0 bg-gradient-to-t from-[#1E3F32] via-transparent to-transparent pointer-events-none"></div>
+                    </div>
+
+                    <div class="p-7 pt-5">
+                        <div class="flex items-center justify-between mb-4">
+                            <div class="w-11 h-11 rounded-2xl bg-gold/15 text-gold flex items-center justify-center">
+                                <i class="fa-solid fa-hand-sparkles text-lg"></i>
+                            </div>
+                            <span class="text-[11px] font-bold uppercase tracking-wider px-3 py-1 rounded-full bg-bone/10 text-bone/90">Cuidado Integral</span>
+                        </div>
+                        <h3 class="font-serif text-2xl sm:text-3xl font-semibold text-bone mb-3">Sala de Manicure & Pedicure</h3>
+                        <p class="text-sm text-bone/80 leading-relaxed">
+                            Espacio dedicado al cuidado estético de manos y pies con productos de alta calidad, complementado con servicio de depilación con cera en ambiente privado.
+                        </p>
+                    </div>
+                </div>
+                <div class="px-7 py-4 border-t border-bone/10 flex items-center justify-between text-xs text-goldLight">
+                    <span><i class="fa-solid fa-sparkles mr-1.5"></i>Atención personalizada</span>
+                    <a href="https://wa.me/593986157698?text=Hola%20SPA%20La%20Tortuga%2C%20quisiera%20agendar%20Manicure%2C%20Pedicure%20o%20Depilaci%C3%B3n." target="_blank" rel="noopener noreferrer" class="underline hover:text-bone font-semibold">Reservar →</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+    <!-- ==================== 5. EXPERIENCIAS Y ACTIVIDADES EN AYAMPE ==================== -->
+<section id="experiencias" class="py-20 sm:py-28 px-4 sm:px-8 bg-sand">
+    <div class="max-w-7xl mx-auto">
+        <!-- Section Header -->
+        <div class="text-center max-w-3xl mx-auto mb-16">
+            <span class="text-xs font-bold uppercase tracking-[0.24em] text-terracotta block mb-3" data-i18n="exp_eyebrow">Explora el Paraíso</span>
+            <h2 class="font-serif text-3xl sm:text-5xl text-jungle font-semibold mb-4" data-i18n="exp_title">Experiencias y Actividades en Ayampe</h2>
+            <p class="text-charcoal/75 text-base sm:text-lg" data-i18n="exp_subtitle">
+                Ayampe es el punto de partida ideal para descubrir la biodiversidad marina y terrestre de la costa ecuatoriana.
+            </p>
+        </div>
+
+        <!-- 3 Categorized Columns: Experiencias y Actividades -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+
+            <!-- Category 1: Mar y Aventura (5 fotos) -->
+            <div class="bg-bone rounded-3xl overflow-hidden shadow-soft border border-jungle/10 flex flex-col">
+                <div class="exp-carousel relative h-56 group"
+                     data-index="0"
+                     data-images="./Fotos/Mar y Aventura/Mar1.jfif|./Fotos/Mar y Aventura/Mar2.png|./Fotos/Mar y Aventura/Mar3.jpg|./Fotos/Mar y Aventura/Mar4.png|./Fotos/Mar y Aventura/Mar5.png">
+                    <img src="./Fotos/Mar y Aventura/Mar1.jfif"
+                         onerror="this.src='https://placehold.co/800x500/1E3F32/FAF7F2?text=Mar+y+Aventura'"
+                         alt="Surf en las olas de Ayampe Ecuador"
+                         class="exp-img w-full h-full object-cover transition-opacity duration-300">
+                    <div class="absolute inset-0 bg-gradient-to-t from-jungle/85 via-jungle/25 to-transparent pointer-events-none"></div>
+
+                    <!-- Flechas -->
+                    <button type="button" onclick="moveExpSlide(this, -1)" aria-label="Foto anterior"
+                            class="absolute left-3 top-1/2 -translate-y-1/2 z-10 w-8 h-8 rounded-full bg-bone/85 hover:bg-bone text-jungle flex items-center justify-center shadow transition">
+                        <i class="fa-solid fa-chevron-left text-xs"></i>
+                    </button>
+                    <button type="button" onclick="moveExpSlide(this, 1)" aria-label="Siguiente foto"
+                            class="absolute right-3 top-1/2 -translate-y-1/2 z-10 w-8 h-8 rounded-full bg-bone/85 hover:bg-bone text-jungle flex items-center justify-center shadow transition">
+                        <i class="fa-solid fa-chevron-right text-xs"></i>
+                    </button>
+
+                    <!-- Contador -->
+                    <span class="exp-counter absolute top-3 right-3 z-10 bg-jungle/75 text-bone text-[11px] font-medium px-2.5 py-0.5 rounded-full backdrop-blur-sm">1 / 5</span>
+
+                    <div class="absolute bottom-4 left-6 right-6 flex items-center justify-between pointer-events-none">
+                        <div>
+                            <span class="text-[11px] uppercase tracking-widest text-gold font-bold">Océano Pacífico</span>
+                            <h3 class="font-serif text-3xl text-bone font-semibold" data-i18n="exp_cat1">Mar y Aventura</h3>
+                        </div>
+                        <div class="w-10 h-10 rounded-full bg-bone/20 backdrop-blur-sm flex items-center justify-center text-bone">
+                            <i class="fa-solid fa-water"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="p-6 sm:p-7 flex-1 flex flex-col justify-between">
+                    <ul class="space-y-4">
+                        <li class="flex items-start gap-3.5">
+                            <span class="w-8 h-8 rounded-lg bg-sand text-terracotta flex items-center justify-center shrink-0 mt-0.5"><i class="fa-solid fa-person-swimming text-sm"></i></span>
+                            <div>
+                                <h4 class="font-semibold text-jungle text-sm">Clases de Surf</h4>
+                                <p class="text-xs text-charcoal/70 mt-0.5">Olas constantes todo el año frente al hotel, ideales para principiantes y surfistas experimentados.</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Category 2: Naturaleza y Fauna (5 fotos) -->
+            <div class="bg-bone rounded-3xl overflow-hidden shadow-soft border border-jungle/10 flex flex-col">
+                <div class="exp-carousel relative h-56 group"
+                     data-index="0"
+                     data-images="./Fotos/Naturaleza y Fauna/Naturaleza1.jpg|./Fotos/Naturaleza y Fauna/Naturaleza2.jpg|./Fotos/Naturaleza y Fauna/Naturaleza3.jpg|./Fotos/Naturaleza y Fauna/Naturaleza4.jpg|./Fotos/Naturaleza y Fauna/Naturaleza5.jpg">
+                    <img src="./Fotos/Naturaleza y Fauna/Naturaleza1.jpg"
+                         onerror="this.src='https://placehold.co/800x500/2B5645/FAF7F2?text=Naturaleza+y+Fauna'"
+                         alt="Selva tropical y avistamiento de fauna en Manabí"
+                         class="exp-img w-full h-full object-cover transition-opacity duration-300">
+                    <div class="absolute inset-0 bg-gradient-to-t from-jungle/85 via-jungle/25 to-transparent pointer-events-none"></div>
+
+                    <button type="button" onclick="moveExpSlide(this, -1)" aria-label="Foto anterior"
+                            class="absolute left-3 top-1/2 -translate-y-1/2 z-10 w-8 h-8 rounded-full bg-bone/85 hover:bg-bone text-jungle flex items-center justify-center shadow transition">
+                        <i class="fa-solid fa-chevron-left text-xs"></i>
+                    </button>
+                    <button type="button" onclick="moveExpSlide(this, 1)" aria-label="Siguiente foto"
+                            class="absolute right-3 top-1/2 -translate-y-1/2 z-10 w-8 h-8 rounded-full bg-bone/85 hover:bg-bone text-jungle flex items-center justify-center shadow transition">
+                        <i class="fa-solid fa-chevron-right text-xs"></i>
+                    </button>
+
+                    <span class="exp-counter absolute top-3 right-3 z-10 bg-jungle/75 text-bone text-[11px] font-medium px-2.5 py-0.5 rounded-full backdrop-blur-sm">1 / 5</span>
+
+                    <div class="absolute bottom-4 left-6 right-6 flex items-center justify-between pointer-events-none">
+                        <div>
+                            <span class="text-[11px] uppercase tracking-widest text-gold font-bold">Biodiversidad</span>
+                            <h3 class="font-serif text-3xl text-bone font-semibold" data-i18n="exp_cat2">Naturaleza y Fauna</h3>
+                        </div>
+                        <div class="w-10 h-10 rounded-full bg-bone/20 backdrop-blur-sm flex items-center justify-center text-bone">
+                            <i class="fa-solid fa-binoculars"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="p-6 sm:p-7 flex-1">
+                    <ul class="space-y-3 text-xs sm:text-sm">
+                        <li class="flex items-start gap-2.5">
+                            <i class="fa-solid fa-circle-check text-terracotta mt-1 shrink-0"></i>
+                            <span><strong class="text-jungle">Avistamiento de Ballenas Jorobadas:</strong> Espectáculo natural imperdible de julio a octubre.</span>
+                        </li>
+                        <li class="flex items-start gap-2.5">
+                            <i class="fa-solid fa-circle-check text-terracotta mt-1 shrink-0"></i>
+                            <span><strong class="text-jungle">Observación de Aves:</strong> Colibríes, tucanes y especies endémicas en la Cuenca del Río Ayampe.</span>
+                        </li>
+                        <li class="flex items-start gap-2.5">
+                            <i class="fa-solid fa-circle-check text-terracotta mt-1 shrink-0"></i>
+                            <span><strong class="text-jungle">Parque Nacional Machalilla e Isla de la Plata:</strong> Conocida como la "Galápagos continental".</span>
+                        </li>
+                        <li class="flex items-start gap-2.5">
+                            <i class="fa-solid fa-circle-check text-terracotta mt-1 shrink-0"></i>
+                            <span><strong class="text-jungle">Playa Los Frailes y Comuna Agua Blanca:</strong> Bahía virgen, laguna de azufre y museo arqueológico manteño.</span>
+                        </li>
+                        <li class="flex items-start gap-2.5">
+                            <i class="fa-solid fa-circle-check text-terracotta mt-1 shrink-0"></i>
+                            <span><strong class="text-jungle">La Ruta de Cirilo:</strong> Senderismo interpretativo por el bosque húmedo tropical.</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Category 3: Bienestar y Calma (5 fotos) -->
+            <div class="bg-bone rounded-3xl overflow-hidden shadow-soft border border-jungle/10 flex flex-col">
+                <div class="exp-carousel relative h-56 group"
+                     data-index="0"
+                     data-images="yoga.jfif|https://placehold.co/800x500/B86B4B/FAF7F2?text=Yoga+Amanecer|https://placehold.co/800x500/1E3F32/FAF7F2?text=Yoga+Atardecer|https://placehold.co/800x500/B86B4B/FAF7F2?text=Cabalgata+Playa|https://placehold.co/800x500/2B5645/FAF7F2?text=Sendero+Rio">
+                    <img src="./Fotos/Bienestar/yoga.jfif"
+                         onerror="this.src='https://placehold.co/800x500/B86B4B/FAF7F2?text=Bienestar+y+Calma'"
+                         alt="Yoga frente al mar en Ayampe"
+                         class="exp-img w-full h-full object-cover transition-opacity duration-300">
+                    <div class="absolute inset-0 bg-gradient-to-t from-jungle/85 via-jungle/25 to-transparent pointer-events-none"></div>
+
+                    <button type="button" onclick="moveExpSlide(this, -1)" aria-label="Foto anterior"
+                            class="absolute left-3 top-1/2 -translate-y-1/2 z-10 w-8 h-8 rounded-full bg-bone/85 hover:bg-bone text-jungle flex items-center justify-center shadow transition">
+                        <i class="fa-solid fa-chevron-left text-xs"></i>
+                    </button>
+                    <button type="button" onclick="moveExpSlide(this, 1)" aria-label="Siguiente foto"
+                            class="absolute right-3 top-1/2 -translate-y-1/2 z-10 w-8 h-8 rounded-full bg-bone/85 hover:bg-bone text-jungle flex items-center justify-center shadow transition">
+                        <i class="fa-solid fa-chevron-right text-xs"></i>
+                    </button>
+
+                    <span class="exp-counter absolute top-3 right-3 z-10 bg-jungle/75 text-bone text-[11px] font-medium px-2.5 py-0.5 rounded-full backdrop-blur-sm">1 / 5</span>
+
+                    <div class="absolute bottom-4 left-6 right-6 flex items-center justify-between pointer-events-none">
+                        <div>
+                            <span class="text-[11px] uppercase tracking-widest text-gold font-bold">Cuerpo & Mente</span>
+                            <h3 class="font-serif text-3xl text-bone font-semibold" data-i18n="exp_cat3">Bienestar</h3>
+                        </div>
+                        <div class="w-10 h-10 rounded-full bg-bone/20 backdrop-blur-sm flex items-center justify-center text-bone">
+                            <i class="fa-solid fa-sun"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="p-6 sm:p-7 flex-1 flex flex-col justify-between">
+                    <ul class="space-y-4">
+                        <li class="flex items-start gap-3.5">
+                            <span class="w-8 h-8 rounded-lg bg-sand text-terracotta flex items-center justify-center shrink-0 mt-0.5"><i class="fa-solid fa-om text-sm"></i></span>
+                            <div>
+                                <h4 class="font-semibold text-jungle text-sm">Clases de Yoga frente al Mar</h4>
+                                <p class="text-xs text-charcoal/70 mt-0.5">Prácticas matutinas y al atardecer con la brisa marina y el murmullo de las olas como banda sonora.</p>
+                            </div>
+                        </li>
+                        <li class="flex items-start gap-3.5">
+                            <span class="w-8 h-8 rounded-lg bg-sand text-terracotta flex items-center justify-center shrink-0 mt-0.5"><i class="fa-solid fa-horse text-sm"></i></span>
+                            <div>
+                                <h4 class="font-semibold text-jungle text-sm">Paseos a Caballo</h4>
+                                <p class="text-xs text-charcoal/70 mt-0.5">Cabalgatas guiadas por la orilla de la playa al caer la tarde y senderos rurales junto al río.</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- ==================== 6. RESTAURANTES ==================== -->
+<section id="restaurantes" class="border-t border-jungle/10 overflow-hidden">
+
+    <!-- ENCABEZADO GENERAL -->
+    <div class="bg-bone pt-24 pb-16 sm:pt-32 sm:pb-20 px-4 sm:px-8">
+        <div class="max-w-3xl mx-auto text-center">
+            <span class="text-xs font-bold uppercase tracking-[0.26em] text-terracotta block mb-3" data-i18n="rest_eyebrow">Gastronomía en La Tortuga</span>
+            <h2 class="font-serif text-3xl sm:text-5xl text-jungle font-semibold mb-4" data-i18n="rest_title">Restaurantes</h2>
+            <p class="text-charcoal/75 text-base sm:text-lg leading-relaxed" data-i18n="rest_subtitle">
+                Dos espacios gastronómicos independientes integrados a nuestras instalaciones frente al mar: frescura tropical, cocina de fusión y momentos inolvidables del amanecer a la noche.
+            </p>
+        </div>
+    </div>
+
+    <!-- ===================================================================== -->
+    <!-- SUBINSTALACIÓN 1: MALI (Tema: Brisa de Mañana, Sol y Arena Cálida)    -->
+    <!-- ===================================================================== -->
+    <div class="relative py-20 sm:py-28 px-4 sm:px-8 bg-gradient-to-br from-[#FAF7F2] via-[#F4ECE1] to-[#EFE2D0] text-charcoal overflow-hidden">
+        
+        <!-- Decoración temática de fondo: Sol difuminado + ondas sutiles -->
+        <div class="pointer-events-none absolute -top-24 -left-24 w-[420px] h-[420px] rounded-full bg-gold/15 blur-3xl"></div>
+        <div class="pointer-events-none absolute -bottom-32 right-0 w-[380px] h-[380px] rounded-full bg-terracotta/10 blur-3xl"></div>
+        <!-- Aro geométrico fino estilo amanecer -->
+        <div class="pointer-events-none absolute top-12 right-12 w-72 h-72 rounded-full border border-terracotta/15 hidden lg:block"></div>
+        <div class="pointer-events-none absolute top-20 right-20 w-56 h-56 rounded-full border border-gold/25 hidden lg:block"></div>
+
+        <article class="relative z-10 max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
+            <!-- Carrusel Editorial -->
+            <div class="lg:col-span-6">
+                <div class="exp-carousel relative h-72 sm:h-96 lg:h-[440px] rounded-[2rem] overflow-hidden shadow-xl border border-terracotta/15 group"
+                     data-index="0"
+                     data-images="./Fotos/Mali/Mali1.png|./Fotos/Mali/Mali2.png|./Fotos/Mali/Mali3.png|./Fotos/Mali/Mali4.png|./Fotos/Mali/Mali5.png">
+                    <img src="./Fotos/Mali/Mali1.png"
+                         onerror="this.src='https://placehold.co/800x600/2B5645/FAF7F2?text=Mali+Restaurante'"
+                         alt="Restaurante Mali frente al mar en Ayampe"
+                         class="exp-img w-full h-full object-cover transition-opacity duration-300">
+                    <div class="absolute inset-0 bg-gradient-to-t from-jungle/70 via-transparent to-transparent pointer-events-none"></div>
+
+                    <button type="button" onclick="moveExpSlide(this, -1)" aria-label="Foto anterior"
+                            class="absolute left-4 top-1/2 -translate-y-1/2 z-10 w-9 h-9 rounded-full bg-bone/90 hover:bg-bone text-jungle flex items-center justify-center shadow transition">
+                        <i class="fa-solid fa-chevron-left text-xs"></i>
+                    </button>
+                    <button type="button" onclick="moveExpSlide(this, 1)" aria-label="Siguiente foto"
+                            class="absolute right-4 top-1/2 -translate-y-1/2 z-10 w-9 h-9 rounded-full bg-bone/90 hover:bg-bone text-jungle flex items-center justify-center shadow transition">
+                        <i class="fa-solid fa-chevron-right text-xs"></i>
+                    </button>
+
+                    <span class="exp-counter absolute top-4 right-4 z-10 bg-jungle/80 text-bone text-[11px] font-medium px-3 py-1 rounded-full backdrop-blur-sm tracking-wide">1 / 5</span>
+
+                    <div class="absolute bottom-5 left-6 right-6 flex items-end justify-between pointer-events-none">
+                        <span class="text-[11px] uppercase tracking-[0.2em] text-gold font-semibold bg-jungle/70 backdrop-blur-sm px-3.5 py-1 rounded-full">
+                            Frente al Mar · Día &amp; Tarde
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Ficha Editorial Mali -->
+            <div class="lg:col-span-6 lg:pl-2">
+                <div class="flex items-center gap-3 mb-3">
+                    <span class="text-xs font-bold uppercase tracking-[0.22em] text-terracotta">01 · Restaurant &amp; Cafe</span>
+                    <span class="h-px w-10 bg-terracotta/30"></span>
+                </div>
+
+                <h3 class="font-serif text-4xl sm:text-5xl text-jungle font-semibold mb-4" data-i18n="exp_cat5">Mali</h3>
+                <p class="text-charcoal/80 text-sm sm:text-base leading-relaxed mb-8">
+                    Un espacio luminoso y sereno junto al océano, pensado para comenzar el día con calma, disfrutar sabores vibrantes del sudeste asiático o brindar al atardecer con la brisa marina.
+                </p>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-5 border-t border-b border-jungle/10 py-6 mb-8">
+                    <div class="flex items-start gap-3">
+                        <span class="w-8 h-8 rounded-full bg-bone shadow-xs text-terracotta flex items-center justify-center shrink-0 mt-0.5">
+                            <i class="fa-solid fa-mug-hot text-xs"></i>
+                        </span>
+                        <div>
+                            <h4 class="font-semibold text-jungle text-sm">Desayunos, Almuerzos y Café</h4>
+                            <p class="text-xs text-charcoal/70 mt-0.5 leading-relaxed">Ideal para empezar la mañana frente a la naturaleza o compartir una comida relajada.</p>
+                        </div>
+                    </div>
+
+                    <div class="flex items-start gap-3">
+                        <span class="w-8 h-8 rounded-full bg-bone shadow-xs text-terracotta flex items-center justify-center shrink-0 mt-0.5">
+                            <i class="fa-solid fa-pepper-hot text-xs"></i>
+                        </span>
+                        <div>
+                            <h4 class="font-semibold text-jungle text-sm">Comida tailandesa</h4>
+                            <p class="text-xs text-charcoal/70 mt-0.5 leading-relaxed">Recetas aromáticas y balanceadas con especias, hierbas frescas y matices asiáticos.</p>
+                        </div>
+                    </div>
+
+                    <div class="flex items-start gap-3">
+                        <span class="w-8 h-8 rounded-full bg-bone shadow-xs text-terracotta flex items-center justify-center shrink-0 mt-0.5">
+                            <i class="fa-solid fa-bowl-rice text-xs"></i>
+                        </span>
+                        <div>
+                            <h4 class="font-semibold text-jungle text-sm">Açaí bowls</h4>
+                            <p class="text-xs text-charcoal/70 mt-0.5 leading-relaxed">Frescos y nutritivos con frutas tropicales, granola y toppings naturales.</p>
+                        </div>
+                    </div>
+
+                    <div class="flex items-start gap-3">
+                        <span class="w-8 h-8 rounded-full bg-bone shadow-xs text-terracotta flex items-center justify-center shrink-0 mt-0.5">
+                            <i class="fa-solid fa-ice-cream text-xs"></i>
+                        </span>
+                        <div>
+                            <h4 class="font-semibold text-jungle text-sm">Postres</h4>
+                            <p class="text-xs text-charcoal/70 mt-0.5 leading-relaxed">Toques dulces para acompañar un café o cerrar la sobremesa junto al mar.</p>
+                        </div>
+                    </div>
+
+                    <div class="flex items-start gap-3 sm:col-span-2">
+                        <span class="w-8 h-8 rounded-full bg-bone shadow-xs text-terracotta flex items-center justify-center shrink-0 mt-0.5">
+                            <i class="fa-solid fa-martini-glass-citrus text-xs"></i>
+                        </span>
+                        <div>
+                            <h4 class="font-semibold text-jungle text-sm">Cócteles</h4>
+                            <p class="text-xs text-charcoal/70 mt-0.5 leading-relaxed">Bebidas y cócteles refrescantes para acompañar el caer de la tarde frente a la playa.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <a href="https://wa.me/593XXXXXXXXX?text=Hola%20La%20Tortuga%20Ayampe%2C%20me%20gustar%C3%ADa%20reservar%20desayuno%20en%20Mali."
+                   target="_blank"
+                   rel="noopener noreferrer"
+                   class="inline-flex items-center justify-center gap-2.5 bg-jungle hover:bg-jungle/90 text-bone text-xs sm:text-sm font-semibold py-3.5 px-6 rounded-full transition shadow-md">
+                    <i class="fa-brands fa-whatsapp text-base"></i>
+                    <span data-i18n="mali_book_breakfast">Reservar desayuno por WhatsApp</span>
+                </a>
+            </div>
+        </article>
+    </div>
+
+    <!-- ===================================================================== -->
+    <!-- SUBINSTALACIÓN 2: SELVAMAR (Tema: Selva Nocturna, Pacífico y Dorados) -->
+    <!-- ===================================================================== -->
+    <div class="relative py-20 sm:py-28 px-4 sm:px-8 bg-gradient-to-br from-jungle via-[#183529] to-[#10241C] text-bone overflow-hidden">
+        
+        <!-- Decoración temática de fondo: Luz esmeralda/dorada nocturna + silueta botánica sutil -->
+        <div class="pointer-events-none absolute -top-28 right-10 w-[440px] h-[440px] rounded-full bg-gold/10 blur-3xl"></div>
+        <div class="pointer-events-none absolute -bottom-32 -left-20 w-[400px] h-[400px] rounded-full bg-emerald-400/10 blur-3xl"></div>
+        <!-- Trama de puntos sutil estilo noche tropical -->
+        <div class="pointer-events-none absolute inset-0 opacity-[0.06]"
+             style="background-image: radial-gradient(#FAF7F2 1px, transparent 1px); background-size: 24px 24px;"></div>
+
+        <article class="relative z-10 max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
+            <!-- Ficha Editorial Selvamar -->
+            <div class="lg:col-span-6 order-2 lg:order-1 lg:pr-2">
+                <div class="flex items-center gap-3 mb-3">
+                    <span class="text-xs font-bold uppercase tracking-[0.22em] text-gold">02 · Restaurante &amp; Sushi Bar</span>
+                    <span class="h-px w-10 bg-gold/35"></span>
+                </div>
+
+                <h3 class="font-serif text-4xl sm:text-5xl text-bone font-semibold mb-4" data-i18n="exp_cat6">Selvamar</h3>
+                <p class="text-bone/80 text-sm sm:text-base leading-relaxed mb-8">
+                    Donde la frescura del Pacífico se encuentra con la vegetación tropical en una atmósfera refinada y relajada, ideal para saborear pesca del día, sushi artesanal y coctelería de autor al caer la tarde.
+                </p>
+
+                <div class="space-y-5 border-t border-b border-bone/15 py-6">
+                    <div class="flex items-start gap-3.5">
+                        <span class="w-8 h-8 rounded-full bg-bone/10 border border-gold/25 text-gold flex items-center justify-center shrink-0 mt-0.5">
+                            <i class="fa-solid fa-shrimp text-xs"></i>
+                        </span>
+                        <div>
+                            <h4 class="font-semibold text-bone text-sm">Sushi Bar Fusión del Pacífico</h4>
+                            <p class="text-xs sm:text-sm text-bone/70 mt-0.5 leading-relaxed">Rolls artesanales, tiraditos y ceviches preparados al momento con mariscos frescos recién capturados.</p>
+                        </div>
+                    </div>
+
+                    <div class="flex items-start gap-3.5">
+                        <span class="w-8 h-8 rounded-full bg-bone/10 border border-gold/25 text-gold flex items-center justify-center shrink-0 mt-0.5">
+                            <i class="fa-solid fa-martini-glass-citrus text-xs"></i>
+                        </span>
+                        <div>
+                            <h4 class="font-semibold text-bone text-sm">Coctelería de Autor y Ambiente Nocturno</h4>
+                            <p class="text-xs sm:text-sm text-bone/70 mt-0.5 leading-relaxed">Tragos tropicales y buena música en un entorno rodeado de vegetación, perfecto para cerrar la tarde.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Carrusel Editorial -->
+            <div class="lg:col-span-6 order-1 lg:order-2">
+                <div class="exp-carousel relative h-72 sm:h-96 lg:h-[440px] rounded-[2rem] overflow-hidden shadow-2xl border border-gold/20 group"
+                     data-index="0"
+                     data-images="./Fotos/Selvamar/Selvamar1.png|./Fotos/Selvamar/Selvamar2.png|./Fotos/Selvamar/Selvamar3.png|https://placehold.co/800x600/B86B4B/FAF7F2?text=Cocteleria+Tropical|https://placehold.co/800x600/2B5645/FAF7F2?text=Sushi+Bar+Noche">
+                    <img src="./Fotos/Selvamar/Selvamar1.png"
+                         onerror="this.src='https://placehold.co/800x600/B86B4B/FAF7F2?text=Selvamar+Sushi+Bar'"
+                         alt="Selvamar Restaurante Sushi Bar en Ayampe"
+                         class="exp-img w-full h-full object-cover transition-opacity duration-300">
+                    <div class="absolute inset-0 bg-gradient-to-t from-[#10241C]/80 via-transparent to-transparent pointer-events-none"></div>
+
+                    <button type="button" onclick="moveExpSlide(this, -1)" aria-label="Foto anterior"
+                            class="absolute left-4 top-1/2 -translate-y-1/2 z-10 w-9 h-9 rounded-full bg-bone/90 hover:bg-bone text-jungle flex items-center justify-center shadow transition">
+                        <i class="fa-solid fa-chevron-left text-xs"></i>
+                    </button>
+                    <button type="button" onclick="moveExpSlide(this, 1)" aria-label="Siguiente foto"
+                            class="absolute right-4 top-1/2 -translate-y-1/2 z-10 w-9 h-9 rounded-full bg-bone/90 hover:bg-bone text-jungle flex items-center justify-center shadow transition">
+                        <i class="fa-solid fa-chevron-right text-xs"></i>
+                    </button>
+
+                    <span class="exp-counter absolute top-4 right-4 z-10 bg-jungle/85 border border-gold/25 text-bone text-[11px] font-medium px-3 py-1 rounded-full backdrop-blur-sm tracking-wide">1 / 5</span>
+
+                    <div class="absolute bottom-5 left-6 right-6 flex items-end justify-between pointer-events-none">
+                        <span class="text-[11px] uppercase tracking-[0.2em] text-gold font-semibold bg-[#10241C]/80 border border-gold/20 backdrop-blur-sm px-3.5 py-1 rounded-full">
+                            Selva &amp; Pacífico · Atardecer &amp; Noche
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </article>
+    </div>
+
+</section>
+<!-- ==================== 7. SERVICIOS Y ESPACIOS COMUNES ==================== -->
+<section id="servicios-espacios" class="py-20 sm:py-28 px-4 sm:px-8 bg-sand border-t border-jungle/10">
+    <div class="max-w-7xl mx-auto">
+        <!-- Section Header -->
+        <div class="text-center max-w-3xl mx-auto mb-16">
+            <span class="text-xs font-bold uppercase tracking-[0.24em] text-terracotta block mb-3" data-i18n="srv_eyebrow">Comodidad Total</span>
+            <h2 class="font-serif text-3xl sm:text-5xl text-jungle font-semibold mb-4" data-i18n="srv_title">Servicios y Espacios Comunes</h2>
+            <p class="text-charcoal/75 text-base sm:text-lg" data-i18n="srv_subtitle">
+                Instalaciones pensadas para descansar, compartir y disfrutar de Ayampe con total comodidad.
+            </p>
+        </div>
+
+        <!-- Tarjeta Destacada con Carrusel + Lista de Servicios y Espacios -->
+        <div class="bg-bone rounded-3xl overflow-hidden shadow-soft border border-jungle/10 grid grid-cols-1 lg:grid-cols-12">
+            <!-- Carrusel de Servicios y Espacios Comunes (5 fotos) -->
+            <div class="exp-carousel relative h-64 lg:h-auto lg:min-h-[380px] lg:col-span-5 group"
+                 data-index="0"
+                 data-images="cespedTortuga1.jpg|https://placehold.co/800x500/2B5645/FAF7F2?text=Tours+Locales|https://placehold.co/800x500/1E3F32/FAF7F2?text=Jardines+Tropicales|https://placehold.co/800x500/2B5645/FAF7F2?text=Area+Descanso">
+                <img src="./Fotos/Servivios/Servicios1.jpg"
+                     onerror="this.src='https://placehold.co/800x500/1E3F32/FAF7F2?text=Servicios'"
+                     alt="Servicios y espacios comunes en La Tortuga Ayampe"
+                     class="exp-img w-full h-full object-cover transition-opacity duration-300">
+                <div class="absolute inset-0 bg-gradient-to-t from-jungle/85 via-jungle/25 to-transparent pointer-events-none"></div>
+
+                <button type="button" onclick="moveExpSlide(this, -1)" aria-label="Foto anterior"
+                        class="absolute left-3 top-1/2 -translate-y-1/2 z-10 w-8 h-8 rounded-full bg-bone/85 hover:bg-bone text-jungle flex items-center justify-center shadow transition">
+                    <i class="fa-solid fa-chevron-left text-xs"></i>
+                </button>
+                <button type="button" onclick="moveExpSlide(this, 1)" aria-label="Siguiente foto"
+                        class="absolute right-3 top-1/2 -translate-y-1/2 z-10 w-8 h-8 rounded-full bg-bone/85 hover:bg-bone text-jungle flex items-center justify-center shadow transition">
+                    <i class="fa-solid fa-chevron-right text-xs"></i>
+                </button>
+
+                <span class="exp-counter absolute top-3 right-3 z-10 bg-jungle/75 text-bone text-[11px] font-medium px-2.5 py-0.5 rounded-full backdrop-blur-sm">1 / 5</span>
+
+                <div class="absolute bottom-4 left-6 right-6 flex items-center justify-between pointer-events-none">
+                    <div>
+                        <span class="text-[11px] uppercase tracking-widest text-gold font-bold">En el Hotel</span>
+                        <h3 class="font-serif text-3xl text-bone font-semibold" data-i18n="exp_cat4">Espacios comunes</h3>
+                    </div>
+                    <div class="w-10 h-10 rounded-full bg-bone/20 backdrop-blur-sm flex items-center justify-center text-bone">
+                        <i class="fa-solid fa-concierge-bell"></i>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Listado de Servicios y Espacios Comunes -->
+            <div class="p-6 sm:p-8 lg:p-10 lg:col-span-7 flex flex-col justify-center">
+                <h2 class="font-serif text-2xl sm:text-3xl lg:text-4xl text-jungle font-semibold pb-4 mb-6 border-b border-jungle/10">
+                    Servicios
+                </h2>
+                <ul class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <li class="flex items-center gap-3">
+                        <span class="w-8 h-8 rounded-lg bg-sand text-terracotta flex items-center justify-center shrink-0">
+                            <i class="fa-solid fa-shower text-xs"></i>
+                        </span>
+                        <span class="text-xs sm:text-sm font-medium text-jungle leading-tight">Baño privado con agua caliente</span>
+                    </li>
+
+                    <li class="flex items-center gap-3">
+                        <span class="w-8 h-8 rounded-lg bg-sand text-terracotta flex items-center justify-center shrink-0">
+                            <i class="fa-solid fa-water-ladder text-xs"></i>
+                        </span>
+                        <span class="text-xs sm:text-sm font-medium text-jungle leading-tight">Piscina</span>
+                    </li>
+
+                    <li class="flex items-center gap-3">
+                        <span class="w-8 h-8 rounded-lg bg-sand text-terracotta flex items-center justify-center shrink-0">
+                            <i class="fa-solid fa-utensils text-xs"></i>
+                        </span>
+                        <span class="text-xs sm:text-sm font-medium text-jungle leading-tight">Restaurante / Bar / Terraza</span>
+                    </li>
+
+                    <li class="flex items-center gap-3">
+                        <span class="w-8 h-8 rounded-lg bg-sand text-terracotta flex items-center justify-center shrink-0">
+                            <i class="fa-solid fa-square-parking text-xs"></i>
+                        </span>
+                        <span class="text-xs sm:text-sm font-medium text-jungle leading-tight">Estacionamiento privado</span>
+                    </li>
+
+                    <li class="flex items-center gap-3">
+                        <span class="w-8 h-8 rounded-lg bg-sand text-terracotta flex items-center justify-center shrink-0">
+                            <i class="fa-solid fa-circle-dot text-xs"></i>
+                        </span>
+                        <span class="text-xs sm:text-sm font-medium text-jungle leading-tight">Mesa de billar</span>
+                    </li>
+
+                    <li class="flex items-center gap-3">
+                        <span class="w-8 h-8 rounded-lg bg-sand text-terracotta flex items-center justify-center shrink-0">
+                            <i class="fa-solid fa-chess-board text-xs"></i>
+                        </span>
+                        <span class="text-xs sm:text-sm font-medium text-jungle leading-tight">Juegos de mesa</span>
+                    </li>
+
+                    <li class="flex items-center gap-3">
+                        <span class="w-8 h-8 rounded-lg bg-sand text-terracotta flex items-center justify-center shrink-0">
+                            <i class="fa-solid fa-shirt text-xs"></i>
+                        </span>
+                        <span class="text-xs sm:text-sm font-medium text-jungle leading-tight">Servicio de lavandería</span>
+                    </li>
+
+                    <li class="flex items-center gap-3">
+                        <span class="w-8 h-8 rounded-lg bg-sand text-terracotta flex items-center justify-center shrink-0">
+                            <i class="fa-solid fa-wifi text-xs"></i>
+                        </span>
+                        <span class="text-xs sm:text-sm font-medium text-jungle leading-tight">WI-FI</span>
+                    </li>
+
+                    <li class="flex items-center gap-3">
+                        <span class="w-8 h-8 rounded-lg bg-sand text-terracotta flex items-center justify-center shrink-0">
+                            <i class="fa-solid fa-fire-burner text-xs"></i>
+                        </span>
+                        <span class="text-xs sm:text-sm font-medium text-jungle leading-tight">Cocinas compartidas</span>
+                    </li>
+
+                    <li class="flex items-center gap-3">
+                        <span class="w-8 h-8 rounded-lg bg-sand text-terracotta flex items-center justify-center shrink-0">
+                            <i class="fa-solid fa-umbrella-beach text-xs"></i>
+                        </span>
+                        <span class="text-xs sm:text-sm font-medium text-jungle leading-tight">Techados al pie del mar con hamacas</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+
+    <!-- ==================== 6. UBICACIÓN Y CONTACTO ==================== -->
+    <section id="ubicacion" class="py-20 sm:py-28 px-4 sm:px-8 bg-bone">
+        <div class="max-w-7xl mx-auto">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-stretch">
+                <!-- Left Column: Stylized Interactive Map Card & Directions -->
+                <div class="lg:col-span-6 flex flex-col justify-between bg-sand rounded-3xl p-6 sm:p-8 border border-jungle/10">
+                    <div>
+                        <span class="text-xs font-bold uppercase tracking-[0.24em] text-terracotta block mb-2" data-i18n="loc_eyebrow">Cómo Llegar</span>
+                        <h2 class="font-serif text-3xl sm:text-4xl text-jungle font-semibold mb-3" data-i18n="loc_title">Km 86 Ruta del Spondylus, Ayampe</h2>
+                        <p class="text-sm text-charcoal/80 mb-6">
+                            Ubicados en la costa sur de Manabí, Ecuador, frente a la playa de Ayampe y con vista privilegiada hacia los islotes de Los Ahorcados.
+                        </p>
+
+                        <!-- Stylized Visual Map Frame -->
+                        <div class="relative rounded-2xl overflow-hidden border border-jungle/15 h-60 sm:h-64 mb-6 bg-jungle/5">
+                            <iframe 
+                                title="Mapa de ubicación La Tortuga Ayampe"
+                                src="https://www.openstreetmap.org/export/embed.html?bbox=-80.8225%2C-1.6850%2C-80.8050%2C-1.6710&amp;layer=mapnik&amp;marker=-1.6782%2C-80.8138" 
+                                class="w-full h-full border-0 filter contrast-95"
+                                loading="lazy">
+                            </iframe>
+                            <a href="https://maps.google.com/?q=La+Tortuga+Ayampe+Ecuador" target="_blank" rel="noopener noreferrer" 
+                               class="absolute bottom-3 right-3 bg-jungle text-bone text-xs font-semibold px-4 py-2 rounded-full shadow-lg hover:bg-terracotta transition-colors flex items-center gap-1.5">
+                                <i class="fa-solid fa-diamond-turn-right text-gold"></i>
+                                <span>Abrir en Google Maps</span>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Travel Guide Cards (From Guayaquil / Manta) -->
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div class="bg-bone p-4 rounded-2xl border border-jungle/10">
+                            <div class="flex items-center gap-2 text-jungle font-bold text-xs uppercase tracking-wider mb-1.5">
+                                <i class="fa-solid fa-car text-terracotta"></i>
+                                <span>Desde Guayaquil (GYE)</span>
+                            </div>
+                            <p class="text-xs text-charcoal/75 leading-relaxed">
+                                Aprox. <strong>2h 45min</strong> en auto por la Ruta del Spondylus (vía Santa Elena – Montañita – Olón – Ayampe, Km 86).
+                            </p>
+                        </div>
+
+                        <div class="bg-bone p-4 rounded-2xl border border-jungle/10">
+                            <div class="flex items-center gap-2 text-jungle font-bold text-xs uppercase tracking-wider mb-1.5">
+                                <i class="fa-solid fa-car text-terracotta"></i>
+                                <span>Desde Manta (MEC)</span>
+                            </div>
+                            <p class="text-xs text-charcoal/75 leading-relaxed">
+                                Aprox. <strong>1h 50min</strong> rumbo sur por la costa (vía Puerto Cayo – Machalilla – Puerto López – Ayampe).
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Column: Direct Department Directory -->
+                <div class="lg:col-span-6 flex flex-col justify-between">
+                    <div>
+                        <span class="text-xs font-bold uppercase tracking-[0.24em] text-terracotta block mb-2" data-i18n="dir_eyebrow">Atención Directa</span>
+                        <h2 class="font-serif text-3xl sm:text-4xl text-jungle font-semibold mb-3" data-i18n="dir_title">Directorio de Reservas</h2>
+                        <p class="text-sm text-charcoal/80 mb-7" data-i18n="dir_subtitle">
+                            Comunícate directamente con el área de tu interés vía WhatsApp o llamada telefónica para atención personalizada e inmediata.
+                        </p>
+
+                        <div class="space-y-4">
+                            <!-- Line 1: Cabañas, Bungalows & Casas -->
+                            <div class="p-5 rounded-2xl bg-sand border border-jungle/10 hover:border-terracotta/50 transition-all flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                                <div>
+                                    <span class="text-[11px] font-bold uppercase tracking-wider text-terracotta">Alojamientos Frente al Mar & Casas</span>
+                                    <h3 class="font-serif text-2xl font-semibold text-jungle">Hospedajes La Tortuga</h3>
+                                    <p class="text-sm font-medium text-charcoal/80 mt-0.5">+593 99 383 4825</p>
+                                </div>
+                                <a href="https://wa.me/593993834825?text=Hola%20La%20Tortuga%20Ayampe%2C%20quisiera%20consultar%20disponibilidad%20para%20Caba%C3%B1as%2FBungalows%2FCasas." 
+                                   target="_blank" rel="noopener noreferrer"
+                                   class="shrink-0 px-5 py-3 rounded-xl bg-jungle hover:bg-jungleLight text-bone text-xs font-semibold flex items-center justify-center gap-2 transition-colors">
+                                    <i class="fa-brands fa-whatsapp text-base text-gold"></i>
+                                    <span>Escribir WhatsApp</span>
+                                </a>
+                            </div>
+
+                            <!-- Line 2: SPA La Tortuga -->
+                            <div class="p-5 rounded-2xl bg-sand border border-jungle/10 hover:border-terracotta/50 transition-all flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                                <div>
+                                    <span class="text-[11px] font-bold uppercase tracking-wider text-terracotta">Bienestar Privado</span>
+                                    <h3 class="font-serif text-2xl font-semibold text-jungle">Spa La Tortuga</h3>
+                                    <p class="text-sm font-medium text-charcoal/80 mt-0.5">+593 98 615 7698</p>
+                                </div>
+                                <a href="https://wa.me/593986157698?text=Hola%20SPA%20La%20Tortuga%20Ayampe%2C%20quisiera%20agendar%20una%20sesi%C3%B3n." 
+                                   target="_blank" rel="noopener noreferrer"
+                                   class="shrink-0 px-5 py-3 rounded-xl bg-terracotta hover:bg-terracottaDark text-bone text-xs font-semibold flex items-center justify-center gap-2 transition-colors">
+                                    <i class="fa-brands fa-whatsapp text-base"></i>
+                                    <span>Agendar Spa</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Social Media & Email Row -->
+                    <div class="mt-8 pt-6 border-t border-jungle/10 flex flex-wrap items-center justify-between gap-4">
+                        <div class="flex items-center gap-3">
+                            <a href="https://www.tripadvisor.com/Hotel_Review-g1580660-d6888910-Reviews-Hotel_La_Tortuga-Ayampe_Manabi_Province.html" target="_blank" rel="noopener noreferrer" aria-label="TripAdvisor" class="w-10 h-10 flex items-center justify-center transition-colors hover:opacity-60">
+                                <img src="./Iconos/tripadvisor.svg" alt="Logo TripAdvisor" width="1100" height="110">
+                            </a>
+                            <a href="https://www.booking.com/hotel/ec/la-tortuga-hostal.es.html?aid=1610687&label=la-tortuga-cma0kDSAPuSazO_0g9qi%2AgS394417642026%3Apl%3Ata%3Ap1%3Ap2%3Aac%3Aap%3Aneg%3Afi%3Atikwd-323913391137%3Alp20263%3Ali%3Adec%3Adm%3Appccp%3DUmFuZG9tSVYkc2RlIyh9YfpWGnRw6lOGgfEoJVv7zYo&sid=22571c49e5a2310e4227ad5db9965fb8&all_sr_blocks=182366006_349188316_2_42_0&checkin=2026-11-22&checkout=2026-11-29&dest_id=-924536&dest_type=city&dist=0&group_adults=2&group_children=0&hapos=10&highlighted_blocks=182366006_349188316_2_42_0&hpos=10&matching_block_id=182366006_349188316_2_42_0&no_rooms=1&req_adults=2&req_children=0&room1=A%2CA&sb_price_type=total&sr_order=popularity&sr_pri_blocks=182366006_349188316_2_42_0__35000&srepoch=1795396547&srpvid=0e5f3b79a0e8261df025d709a7dc3fc8&type=total&ucfs=1&" target="_blank" rel="noopener noreferrer" aria-label="Booking" class="w-10 h-10 flex items-center justify-center transition-colors hover:opacity-60">
+                                <img src="./Iconos/booking.svg" alt="Logo Booking" width="1100" height="110">
+                            </a>
+                            
+                        </div>
+                        <p class="text-xs text-charcoal/70">
+                            <i class="fa-solid fa-location-dot text-terracotta mr-1"></i> Km 86 Ruta del Spondylus · Ayampe, Manabí, Ecuador
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== 7. FOOTER ELEGANTE ==================== -->
+    <footer class="bg-jungle text-bone pt-16 pb-10 px-4 sm:px-8 border-t border-bone/10">
+        <div class="max-w-7xl mx-auto">
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-10 pb-12 border-b border-bone/15">
+                <!-- Brand Col -->
+                <div class="md:col-span-5">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="w-10 h-10 flex items-center justify-center">
+                            <img src="./Iconos/logoTortugaBlanco.svg" alt="Logo Tortuga Blanco" width="1100" height="110">
+                        </div>
+                        <div>
+                            <span class="font-serif text-2xl font-semibold block leading-none">La Tortuga</span>
+                            <span class="text-[10px] uppercase tracking-[0.26em] text-gold font-medium block mt-0.5">Ayampe · Manabí · Ecuador</span>
+                        </div>
+                    </div>
+                    <p class="text-sm text-bone/75 leading-relaxed max-w-sm">
+                        Hotel & Spa frente al océano Pacífico en Ayampe, Manabí. Un refugio orgánico diseñado para el descanso, la naturaleza y el bienestar integral.
+                    </p>
+                </div>
+
+                        <!-- Social Media Col (3 columnas nuevas) -->
+                <div class="md:col-span-3">
+                    <h4 class="text-xs font-bold uppercase tracking-widest text-gold mb-4">Síguenos</h4>
+                    <p class="text-xs text-bone/70 mb-4 leading-relaxed">
+                        Conecta con nuestra comunidad y descubre la vida frente al mar.
+                    </p>
+                    <div class="flex items-center gap-3">
+                        <!-- Instagram -->
+                        <a href="https://www.instagram.com/latortugaayampe" target="_blank" rel="noopener noreferrer" aria-label="Instagram"
+                        class="w-10 h-10 rounded-full border border-gold/50 flex items-center justify-center bg-jungleLight text-gold hover:bg-gold hover:text-jungle transition-colors duration-300">
+                            <i class="fa-brands fa-instagram text-lg"></i>
+                        </a>
+                        <!-- Facebook -->
+                        <a href="https://www.facebook.com/LaTortugaAyampe/?locale=es_LA" target="_blank" rel="noopener noreferrer" aria-label="Facebook"
+                        class="w-10 h-10 rounded-full border border-gold/50 flex items-center justify-center bg-jungleLight text-gold hover:bg-gold hover:text-jungle transition-colors duration-300">
+                            <i class="fa-brands fa-facebook-f text-base"></i>
+                        </a>
+                        <!-- WhatsApp -->
+                        <a href="https://wa.me" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp"
+                        class="w-10 h-10 rounded-full border border-gold/50 flex items-center justify-center bg-jungleLight text-gold hover:bg-gold hover:text-jungle transition-colors duration-300">
+                            <i class="fa-brands fa-whatsapp text-lg"></i>
+                        </a>
+                        <!-- TikTok (Opcional) -->
+                        <a href="https://www.tiktok.com/@latortugaayampe" target="_blank" rel="noopener noreferrer" aria-label="TikTok"
+                        class="w-10 h-10 rounded-full border border-gold/50 flex items-center justify-center bg-jungleLight text-gold hover:bg-gold hover:text-jungle transition-colors duration-300">
+                            <i class="fa-brands fa-tiktok text-base"></i>
+                        </a>
+                    </div>
+                </div>
+    
+                <!-- Direct Phones -->
+                <div class="md:col-span-4">
+                    <h4 class="text-xs font-bold uppercase tracking-widest text-gold mb-4">Contacto Directo</h4>
+                    <ul class="space-y-2.5 text-sm text-bone/80">
+                        <li><strong class="text-bone">Cabañas / Bungalows / Casas:</strong> +593 99 383 4825</li>
+                        <li><strong class="text-bone">Suites:</strong> +593 93 905 1632</li>
+                        <li><strong class="text-bone">SPA La Tortuga:</strong> +593 98 615 7698</li>
+                        <li class="pt-1 text-xs text-goldLight">Km 86 Ruta del Spondylus, Ayampe, Manabí</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-bone/60">
+                <p>© 2026 La Tortuga Ayampe. Todos los derechos reservados.</p>
+                <p>Hospitalidad sostenible en la costa de Manabí, Ecuador.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ==================== FLOATING WHATSAPP WIDGET WITH AREA SELECTOR ==================== -->
+    <div class="fixed bottom-5 right-5 z-50">
+        <!-- Area Selector Popover -->
+        <div id="wa-selector-menu" class="hidden mb-3 w-72 bg-bone rounded-2xl shadow-floating border border-jungle/15 overflow-hidden transform transition-all">
+            <div class="bg-jungle text-bone p-4 flex items-center justify-between">
+                <div>
+                    <p class="font-serif text-lg font-semibold leading-tight">¿Con qué área deseas hablar?</p>
+                    <p class="text-[11px] text-goldLight">Respuesta directa por WhatsApp</p>
+                </div>
+                <button onclick="closeWhatsappMenu()" aria-label="Cerrar menú WhatsApp" class="text-bone/70 hover:text-bone p-1">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+            <div class="p-3 space-y-2">
+                <a href="https://wa.me/593993834825?text=Hola%20La%20Tortuga%20Ayampe%2C%20quisiera%20consultar%20sobre%20Caba%C3%B1as%2C%20Bungalows%20o%20Casas." target="_blank" rel="noopener noreferrer"
+                   class="flex items-center justify-between p-3 rounded-xl bg-sand hover:bg-jungle hover:text-bone transition-colors group">
+                    <div>
+                        <p class="text-xs font-bold">Alojamientos</p>
+                        <p class="text-[11px] opacity-75">+593 99 383 4825</p>
+                    </div>
+                    <i class="fa-brands fa-whatsapp text-lg text-[#25D366] group-hover:text-gold"></i>
+                </a>
+
+                <a href="https://wa.me/593986157698?text=Hola%20SPA%20La%20Tortuga%2C%20quisiera%20agendar%20una%20sesi%C3%B3n%20de%20Spa." target="_blank" rel="noopener noreferrer"
+                   class="flex items-center justify-between p-3 rounded-xl bg-sand hover:bg-jungle hover:text-bone transition-colors group">
+                    <div>
+                        <p class="text-xs font-bold">Spa La Tortuga</p>
+                        <p class="text-[11px] opacity-75">+593 98 615 7698</p>
+                    </div>
+                    <i class="fa-brands fa-whatsapp text-lg text-[#25D366] group-hover:text-gold"></i>
+                </a>
+            </div>
+        </div>
+
+        <!-- Floating Button -->
+        <button onclick="toggleWhatsappMenu()" aria-label="Contactar por WhatsApp" class="ml-auto flex items-center gap-2.5 bg-[#25D366] hover:bg-[#1ebe5d] text-white font-semibold px-5 py-3.5 rounded-full shadow-floating transition-transform hover:scale-105">
+            <i class="fa-brands fa-whatsapp text-2xl"></i>
+            <span class="text-xs sm:text-sm hidden sm:inline">WhatsApp Directo</span>
+        </button>
+    </div>
+
+    <!-- ==================== MODAL 1: ACCOMMODATION DETAILS ==================== -->
+    <div id="acc-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-jungle/80 backdrop-blur-sm">
+        <div class="bg-bone rounded-3xl max-w-2xl w-full overflow-hidden shadow-floating border border-gold/30 animate-fadeIn">
+            <div class="relative h-64 sm:h-72">
+                <img id="modal-acc-img" src="" alt="" class="w-full h-full object-cover">
+                <button onclick="closeAccModal()" aria-label="Cerrar detalle" class="absolute top-4 right-4 w-10 h-10 rounded-full bg-jungle/80 text-bone hover:bg-terracotta flex items-center justify-center transition-colors">
+                    <i class="fa-solid fa-xmark text-lg"></i>
+                </button>
+                <div class="absolute bottom-4 left-6">
+                    <span id="modal-acc-badge" class="px-3.5 py-1 rounded-full bg-jungle/90 text-gold text-xs font-bold uppercase tracking-wider"></span>
+                </div>
+            </div>
+            <div class="p-6 sm:p-8">
+                <div class="flex flex-wrap items-baseline justify-between gap-2 mb-3">
+                    <h3 id="modal-acc-title" class="font-serif text-3xl sm:text-4xl text-jungle font-semibold"></h3>
+                    <span id="modal-acc-capacity" class="text-xs font-bold text-terracotta uppercase tracking-wider"></span>
+                </div>
+                <p id="modal-acc-desc" class="text-sm sm:text-base text-charcoal/80 leading-relaxed mb-6"></p>
+                
+                <h4 class="text-xs font-bold uppercase tracking-widest text-jungle mb-3">Amenidades Destacadas</h4>
+                <div id="modal-acc-amenities" class="grid grid-cols-2 gap-2.5 mb-7 text-xs sm:text-sm text-charcoal/85">
+                    <!-- Injected via JS -->
+                </div>
+
+                <div class="flex flex-col sm:flex-row items-center gap-3 pt-4 border-t border-sand">
+                    <a id="modal-acc-wa" href="#" target="_blank" rel="noopener noreferrer" 
+                       class="w-full sm:flex-1 py-3.5 px-6 rounded-xl bg-terracotta hover:bg-terracottaDark text-bone font-semibold text-sm flex items-center justify-center gap-2 transition-colors shadow-md">
+                        <i class="fa-brands fa-whatsapp text-lg"></i>
+                        <span id="modal-acc-wa-label">Reservar por WhatsApp</span>
+                    </a>
+                    <button onclick="closeAccModal()" class="w-full sm:w-auto py-3.5 px-6 rounded-xl bg-sand hover:bg-jungle/10 text-jungle font-semibold text-sm transition-colors">
+                        Cerrar
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==================== MODAL 2: INTERACTIVE 360° SPA TOUR ==================== -->
+    <div id="spa-360-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-jungle/90 backdrop-blur-md">
+        <div class="bg-jungleLight border border-gold/40 rounded-3xl max-w-4xl w-full overflow-hidden shadow-floating text-bone">
+            <!-- Modal Header -->
+            <div class="p-4 sm:p-6 flex items-center justify-between border-b border-bone/15">
+                <div class="flex items-center gap-3">
+                    <span class="w-9 h-9 rounded-full bg-gold/20 text-gold flex items-center justify-center">
+                        <i class="fa-solid fa-vr-cardboard"></i>
+                    </span>
+                    <div>
+                        <h3 class="font-serif text-2xl font-semibold leading-none">Tour Virtual 360° · SPA La Tortuga</h3>
+                        <p class="text-xs text-goldLight mt-1">Arrastra la imagen horizontalmente o selecciona una zona para explorar</p>
+                    </div>
+                </div>
+                <button onclick="closeSpa360Modal()" aria-label="Cerrar Tour 360" class="w-10 h-10 rounded-full bg-bone/10 hover:bg-terracotta text-bone flex items-center justify-center transition-colors">
+                    <i class="fa-solid fa-xmark text-lg"></i>
+                </button>
+            </div>
+
+            <!-- Interactive Panoramic Viewport -->
+            <div id="panorama-container" class="panorama-viewport relative h-72 sm:h-[420px] w-full bg-jungle">
+                <div id="panorama-track" class="h-full w-[220%] flex transition-transform duration-75 ease-out" style="transform: translateX(-25%);">
+                    <img id="panorama-img" 
+                         src="https://images.unsplash.com/photo-1544161515-4ab6ce6db874?auto=format&fit=crop&w=2000&q=85" 
+                         onerror="this.src='https://placehold.co/1800x700/1E3F32/D4A373?text=Vista+Panoramica+SPA+La+Tortuga'"
+                         alt="Vista panorámica 360 del Spa" 
+                         class="w-full h-full object-cover pointer-events-none">
+                </div>
+
+                <!-- Interactive Hotspots Overlay -->
+                <div class="absolute top-4 left-4 bg-jungle/80 backdrop-blur-md border border-gold/40 px-3.5 py-1.5 rounded-full text-xs text-gold flex items-center gap-2 pointer-events-none">
+                    <i class="fa-solid fa-hand-pointer animate-pulse"></i>
+                    <span>Arrastra para girar 360°</span>
+                </div>
+
+                <div id="panorama-caption" class="absolute bottom-4 left-4 right-4 sm:right-auto sm:max-w-md bg-jungle/85 backdrop-blur-md border border-bone/20 p-4 rounded-2xl">
+                    <span id="pano-zone-tag" class="text-[10px] uppercase tracking-widest text-gold font-bold block">Zona 1 de 3</span>
+                    <h4 id="pano-zone-title" class="font-serif text-xl font-semibold text-bone">Plataforma Wellness 3 en 1 & Jardines</h4>
+                    <p id="pano-zone-desc" class="text-xs text-bone/80 mt-1">Sauna, baño de vapor e hidromasaje rodeados de vegetación tropical privada.</p>
+                </div>
+            </div>
+
+            <!-- Zone Switcher Controls -->
+            <div class="p-4 sm:p-6 bg-jungle flex flex-wrap items-center justify-between gap-3">
+                <div class="flex flex-wrap gap-2">
+                    <button onclick="switchSpaZone(0)" class="spa-zone-btn active px-4 py-2 rounded-full text-xs font-semibold bg-gold text-jungle transition-colors">
+                        1. Circuito 3 en 1 & Tina Fría
+                    </button>
+                    <button onclick="switchSpaZone(1)" class="spa-zone-btn px-4 py-2 rounded-full text-xs font-semibold bg-bone/10 text-bone hover:bg-bone/20 transition-colors">
+                        2. Sala de Masajes
+                    </button>
+                    <button onclick="switchSpaZone(2)" class="spa-zone-btn px-4 py-2 rounded-full text-xs font-semibold bg-bone/10 text-bone hover:bg-bone/20 transition-colors">
+                        3. Manicure & Pedicure
+                    </button>
+                </div>
+
+                <a href="https://wa.me/593986157698?text=Hola%20SPA%20La%20Tortuga%2C%20acabo%20de%20ver%20el%20Tour%20360%20y%20quiero%20agendar%20una%20sesi%C3%B3n." 
+                   target="_blank" rel="noopener noreferrer"
+                   class="px-5 py-2.5 rounded-full bg-terracotta hover:bg-terracottaDark text-bone text-xs font-semibold flex items-center gap-2 transition-colors">
+                    <i class="fa-brands fa-whatsapp text-base"></i>
+                    <span>Reservar Spa (+593 98 615 7698)</span>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==================== JAVASCRIPT LOGIC ==================== -->
+    <script>
+        // 1. Accommodation Data (Complete, detailed, authentic to La Tortuga Ayampe)
+        const accommodationsData = [
+            {
+                id: 'cabanas',
+                category: 'cabanas',
+                title_es: 'Cabañas frente al mar',
+                title_en: 'Beachfront Cabins',
+                distance_es: 'Frente al mar · 0 metros',
+                distance_en: 'Oceanfront · 0 meters',
+                units_es: 'Matrimoniales, Dobles, Triples y Familiares',
+                units_en: 'Double, Twin, Triple & Family',
+                short_es: 'Construidas en madera cálida directamente frente a la playa de Ayampe. Disfruta vistas directas al océano Pacífico y acceso inmediato a la arena.',
+                short_en: 'Crafted in warm wood right on Ayampe beach. Enjoy unobstructed views of the Pacific Ocean and direct access to the sand.',
+                full_es: 'Nuestras 11 Cabañas frente al mar ofrecen la experiencia más auténtica de La Tortuga Ayampe. Disponibles en configuración matrimonial para parejas o familiar, cuentan con terraza privada con hamacas, baño privado con agua caliente, ventilación natural y el sonido constante de las olas.',
+                full_en: 'Our 11 beachfront cabins offer the most authentic La Tortuga Ayampe experience. Available in double or family layouts, featuring private terraces with hammocks, private bathrooms with hot water, ocean breeze, and the soothing sound of waves.',
+                amenities_es: ['Vista directa al océano', 'Opciones matrimoniales y familiares', 'Aire acondicionado','Baño privado y agua caliente', 'Wi-Fi en áreas comunes y cabañas'],
+                amenities_en: ['Direct ocean view', 'Double & family layouts', 'Air conditioner','Private bathroom & hot water', 'Wi-Fi connectivity'],
+                image: './Fotos/Varios/main.jfif',
+                whatsapp: '593993834825',
+                phoneDisplay: '+593 99 383 4825'
+            },
+            {
+                id: 'suites',
+                category: 'suites',
+                title_es: 'Suites La Tortuga',
+                title_en: 'La Tortuga Suites',
+                distance_es: 'A 100 metros del mar',
+                distance_en: '100 meters from the beach',
+                units_es: 'Matrimoniales, Dobles, Triples y Familiares',
+                units_en: 'Double, Twin, Triple & Family',
+                short_es: 'Ubicadas a solo 100 metros de la playa en un entorno apacible. Versatilidad y confort superior para parejas, amigos o familias.',
+                short_en: 'Located just 100 meters from the shore in a tranquil garden setting. Superior comfort and versatility for couples, friends, or families.',
+                full_es: 'Nuestras Suites combinan amplitud, privacidad y cercanía al mar (100 metros). Con distribuciones matrimoniales, dobles, triples y familiares, son ideales para quienes buscan mayor comodidad interior después de un día de surf, playa o spa.',
+                full_en: 'Our Suites blend spacious interiors, privacy, and proximity to the beach (100 meters). Offering double, twin, triple, and family setups, they are ideal for guests seeking extra indoor comfort after surfing, beach time, or spa sessions.',
+                amenities_es: ['A 100 metros de la playa', 'Opciones Matrimonial a Familiar', 'Aire acondicionado', 'Baño privado', 'Entorno tranquilo y seguro', 'Wi-Fi'],
+                amenities_en: ['100 meters from the beach', 'Double to Family layouts', 'Air conditioning', 'Private bathroom', 'Quiet & secure environment', 'Wi-Fi'],
+                image: './Fotos/Suites/Suites1.png',
+                whatsapp: '593939051632',
+                phoneDisplay: '+593 93 905 1632'
+            },
+            {
+                id: 'bungalows',
+                category: 'bungalows',
+                title_es: 'Bungalows',
+                title_en: 'Tortuga Bungalows',
+                distance_es: 'A 50 metros del mar',
+                distance_en: '50 meters from the beach',
+                units_es: 'Independientes con cocina equipada',
+                units_en: 'Independent with equipped kitchen',
+                short_es: 'A escasos 50 metros de la playa, pensados para estadías independientes con cocina privada totalmente equipada y aire acondicionado.',
+                short_en: 'Just 50 meters from the beach, designed for independent stays featuring a fully equipped private kitchen and air conditioning.',
+                full_es: 'Los Bungalows brindan total autonomía a 50 metros del océano. Equipados con cocina privada completa, área de comedor, aire acondicionado y detalles acogedores en madera, son perfectos para estadías prolongadas o familias que desean preparar sus propios alimentos.',
+                full_en: 'Tortuga Bungalows offer complete autonomy 50 meters from the ocean. Equipped with a full private kitchen, dining area, air conditioning, and warm wooden accents, they are perfect for extended stays or families.',
+                amenities_es: ['A 50 metros del mar', 'Cocina privada equipada', 'Aire acondicionado', 'Baño privado con agua caliente', 'Cerca de restaurantes y playa'],
+                amenities_en: ['50 meters from the sea', 'Equipped private kitchen', 'Air conditioning', 'Private bathroom & hot water', 'Steps from beach & dining'],
+                image: './Fotos/Bungalows/Bungalows.png',
+                whatsapp: '593993834825',
+                phoneDisplay: '+593 99 383 4825'
+            },
+            {
+                id: 'casas',
+                category: 'casas',
+                title_es: 'Casas Los Ñaños',
+                title_en: 'Los Ñaños Houses',
+                distance_es: 'A 500 metros del mar · Mirador',
+                distance_en: '500 meters from the sea · Panoramic',
+                units_es: 'Casas completas con vista panorámica',
+                units_en: 'Full houses with panoramic views',
+                short_es: 'Ubicadas en una zona elevada a 500 metros del mar, regalando vistas panorámicas inolvidables a toda la playa de Ayampe y los islotes de Los Ahorcados.',
+                short_en: 'Set on an elevated hillside 500 meters from the shore, offering breathtaking panoramic views of Ayampe beach and Los Ahorcados islets.',
+                full_es: 'Casas Los Ñaños ofrece amplitud residencial y una de las mejores vistas panorámicas de Ayampe, dominando la bahía, el bosque tropical y los emblemáticos islotes de Los Ahorcados. Ideales para grupos o familias que buscan privacidad y atardeceres espectaculares.',
+                full_en: 'Casas Los Ñaños provides residential spaciousness and one of the finest panoramic views in Ayampe, overlooking the bay, tropical forest, and iconic Los Ahorcados islets. Ideal for groups or families seeking privacy and unforgettable sunsets.',
+                amenities_es: ['Vista panorámica a Ayampe', 'Cocina privada equipada', 'Aire acondicionado', 'Baño privado con agua caliente', 'Vista a islotes Los Ahorcados', 'A 500 metros de la playa', 'Amplias terrazas y áreas sociales', 'Cocina completa y habitaciones', 'Entorno natural elevado y sereno'],
+                amenities_en: ['Panoramic view of Ayampe', 'Equipped private kitchen', 'Air conditioning', 'Private bathroom & hot water', '500 meters from the beach', 'Spacious terraces & social areas', 'Full kitchen & bedrooms', 'Serene elevated nature setting'],
+                image: './Fotos/Nanos/nanios.png',
+                whatsapp: '593993834825',
+                phoneDisplay: '+593 99 383 4825'
+            }
+        ];
+
+        // 2. Bilingual Dictionary (ES / EN)
+        const translations = {
+            es: {
+                nav_essence: 'Esencia',
+                nav_accommodations: 'Alojamientos',
+                nav_spa: 'SPA',
+                nav_experiences: 'Experiencias',
+                nav_location: 'Ubicación & Contacto',
+                nav_book: 'Reservar',
+                nav_book_direct: 'Reservar por WhatsApp',
+                hero_badge: 'Km 86 Ruta del Spondylus · Ayampe, Manabí',
+                hero_title: 'Tu refugio frente al mar en Ayampe',
+                hero_subtitle: 'Donde la selva húmeda del Pacífico abraza las olas. Despierta con el sonido del océano en nuestras cabañas frente a la playa, suites rodeadas de jardines tropicales y un spa privado diseñado para renovar cuerpo y alma.',
+                hero_cta_explore: 'Explorar Alojamientos',
+                hero_cta_whatsapp: 'Reservar por WhatsApp',
+                search_checkin: 'Fecha de llegada',
+                search_checkout: 'Fecha de salida',
+                search_type: 'Tipo de alojamiento',
+                search_guests: 'Huéspedes',
+                search_btn: 'Consultar Tarifa',
+                essence_stat: 'Conexión auténtica frente al Pacífico ecuatoriano y el bosque tropical.',
+                essence_eyebrow: 'Nuestra Esencia',
+                essence_title: 'Un santuario costero donde el tiempo fluye al ritmo de las mareas',
+                essence_p1: 'En el corazón de Ayampe —un apacible pueblo pesquero y santuario natural de Manabí— La Tortuga Ayampe nace con una filosofía clara: ofrecer hospitalidad cálida, arquitectura orgánica en madera y descanso sin prisas frente al océano.',
+                essence_p2: 'Ya sea que busques despertar a pasos de la arena, compartir en familia en nuestros bungalows equipados o sumergirte en la privacidad de nuestro Spa rodeado de jardines tropicales, aquí encuentras tu lugar.',
+                pillar_relax_title: 'Relax',
+                pillar_relax_desc: 'Silencio costero, hamacas frente al mar y circuitos privados de bienestar.',
+                pillar_comfort_title: 'Confort',
+                pillar_comfort_desc: 'Espacios acogedores en maderas nobles con detalles pensados para tu descanso.',
+                pillar_nature_title: 'Naturaleza',
+                pillar_nature_desc: 'Jardines exuberantes, avistamiento de aves y acceso directo a la playa.',
+                acc_eyebrow: 'Nuestros Espacios',
+                acc_title: 'Alojamientos para cada estilo de viaje',
+                acc_subtitle: 'Desde cabañas rústico-elegantes sobre la arena hasta casas con vistas panorámicas a los islotes de Los Ahorcados.',
+                tab_all: 'Todos (4)',
+                tab_cabanas: 'Cabañas frente al mar',
+                tab_suites: 'Suites',
+                tab_bungalows: 'Bungalows',
+                tab_casas: 'Casas Los Ñaños',
+                spa_eyebrow: 'Bienestar Exclusivo & Privacidad',
+                spa_title: 'SPA La Tortuga: Un oasis privado entre jardines tropicales',
+                spa_desc: 'Rodeado de vegetación exuberante y diseñado bajo un concepto de privacidad absoluta, nuestro Spa opera mediante reservas exclusivas para que disfrutes cada terapia en total armonía con la naturaleza de Ayampe.',
+                spa_cta_book: 'Agendar sesión de Spa',
+                spa_cta_360: 'Tour 360° del Spa',
+                spa_360_card_title: 'Explorar el Spa en 360°',
+                spa_tag_private: 'Uso Exclusivo',
+                spa_c1_title: 'Plataforma Wellness 3 en 1',
+                spa_c2_title: 'Sala de Masajes y Terapias',
+                spa_tag_care: 'Cuidado Integral',
+                spa_c3_title: 'Sala de Manicure & Pedicure',
+                exp_eyebrow: 'Explora el Paraíso',
+                exp_title: ' en Ayampe',
+                exp_subtitle: 'Ayampe es el punto de partida ideal para descubrir la biodiversidad marina y terrestre de la costa ecuatoriana.',
+                exp_cat1: 'Mar y Aventura',
+                exp_cat2: 'Naturaleza y Fauna',
+                exp_cat3: 'Bienestar',
+                loc_eyebrow: 'Cómo Llegar',
+                loc_title: 'Km 86 Ruta del Spondylus, Ayampe',
+                dir_eyebrow: 'Atención Directa',
+                dir_title: 'Directorio de Reservas',
+                dir_subtitle: 'Comunícate directamente con el área de tu interés vía WhatsApp o llamada telefónica para atención personalizada e inmediata.'
+            },
+            en: {
+                nav_essence: 'Essence',
+                nav_accommodations: 'Accommodations',
+                nav_spa: 'Private Spa',
+                nav_experiences: 'Experiences',
+                nav_location: 'Location & Contact',
+                nav_book: 'Book Now',
+                nav_book_direct: 'Book via WhatsApp',
+                hero_badge: 'Km 86 Ruta del Spondylus · Ayampe, Manabí',
+                hero_title: 'Your Oceanfront Sanctuary in Ayampe',
+                hero_subtitle: 'Where the lush Pacific rainforest meets the waves. Wake up to ocean breezes in our beachfront cabins, garden suites, and a private spa crafted to renew body and soul.',
+                hero_cta_explore: 'Explore Accommodations',
+                hero_cta_whatsapp: 'Book via WhatsApp',
+                search_checkin: 'Check-in Date',
+                search_checkout: 'Check-out Date',
+                search_type: 'Accommodation Type',
+                search_guests: 'Guests',
+                search_btn: 'Check Availability',
+                essence_stat: 'Authentic connection facing the Ecuadorian Pacific and tropical forest.',
+                essence_eyebrow: 'Our Essence',
+                essence_title: 'A coastal sanctuary where time flows with the rhythm of the tides',
+                essence_p1: 'In the heart of Ayampe—a peaceful fishing village and nature sanctuary in Manabí—La Tortuga Ayampe was born with a clear philosophy: warm hospitality, organic wooden architecture, and unhurried rest by the sea.',
+                essence_p2: 'Whether you wish to wake up steps from the sand, gather with family in our equipped bungalows, or immerse yourself in our private tropical garden Spa, you belong here.',
+                pillar_relax_title: 'Relax',
+                pillar_relax_desc: 'Coastal tranquility, oceanfront hammocks, and private wellness circuits.',
+                pillar_comfort_title: 'Comfort',
+                pillar_comfort_desc: 'Inviting spaces crafted in fine woods with thoughtful details for deep rest.',
+                pillar_nature_title: 'Nature',
+                pillar_nature_desc: 'Lush tropical gardens, birdwatching, and direct access to the beach.',
+                acc_eyebrow: 'Our Spaces',
+                acc_title: 'Accommodations for every travel style',
+                acc_subtitle: 'From rustic-chic cabins right on the sand to hillside houses overlooking Los Ahorcados islets.',
+                tab_all: 'All (4)',
+                tab_cabanas: 'Beachfront Cabins',
+                tab_suites: 'Suites',
+                tab_bungalows: 'Tortuga Bungalows',
+                tab_casas: 'Los Ñaños Houses',
+                spa_eyebrow: 'Exclusive Wellness & Privacy',
+                spa_title: 'SPA La Tortuga: A private oasis nestled in tropical gardens',
+                spa_desc: 'Surrounded by lush vegetation and designed for total privacy, our Spa operates strictly by private reservation so you can experience every therapy in complete harmony with nature.',
+                spa_cta_book: 'Book a Spa Session',
+                spa_cta_360: '360° Spa Virtual Tour',
+                spa_360_card_title: 'Explore the Spa in 360°',
+                spa_tag_private: 'Exclusive Use',
+                spa_c1_title: '3-in-1 Wellness Platform',
+                spa_c2_title: 'Massage & Therapy Suite',
+                spa_tag_care: 'Holistic Care',
+                spa_c3_title: 'Manicure & Pedicure Lounge',
+                exp_eyebrow: 'Explore Paradise',
+                exp_title: 'Experiences & Activities in Ayampe',
+                exp_subtitle: 'Ayampe is the ideal basecamp to discover the marine and coastal biodiversity of Ecuador.',
+                exp_cat1: 'Ocean & Adventure',
+                exp_cat2: 'Nature & Wildlife',
+                exp_cat3: 'Wellness',
+                loc_eyebrow: 'Getting Here',
+                loc_title: 'Km 86 Ruta del Spondylus, Ayampe',
+                dir_eyebrow: 'Direct Assistance',
+                dir_title: 'Reservations Directory',
+                dir_subtitle: 'Reach out directly to the department of your choice via WhatsApp or phone for immediate, personalized attention.'
+            }
+        };
+
+        let currentLang = 'es';
+        let currentFilter = 'all';
+
+        // 3. Render Accommodations Grid
+        function renderAccommodations() {
+            const grid = document.getElementById('accommodations-grid');
+            const filtered = currentFilter === 'all' 
+                ? accommodationsData 
+                : accommodationsData.filter(item => item.category === currentFilter);
+
+            grid.innerHTML = filtered.map(item => {
+                const title = currentLang === 'es' ? item.title_es : item.title_en;
+                const distance = currentLang === 'es' ? item.distance_es : item.distance_en;
+                const units = currentLang === 'es' ? item.units_es : item.units_en;
+                const shortDesc = currentLang === 'es' ? item.short_es : item.short_en;
+                const amenities = (currentLang === 'es' ? item.amenities_es : item.amenities_en).slice(0, 3);
+                const btnDetails = currentLang === 'es' ? 'Ver Habitaciones' : 'Pictures';
+                const btnBook = currentLang === 'es' ? 'Reservar' : 'Book';
+
+                const waText = encodeURIComponent(`Hola La Tortuga Ayampe, me interesa consultar disponibilidad para: ${item.title_es}.`);
+
+                return `
+                    <article class="bg-sand rounded-3xl overflow-hidden border border-jungle/10 shadow-soft hover:shadow-floating transition-all duration-300 flex flex-col justify-between group">
+                        <div>
+                            <!-- Image Header -->
+                            <div class="relative h-64 sm:h-72 overflow-hidden">
+                                <img src="${item.image}" 
+                                     onerror="this.src='https://placehold.co/900x600/1E3F32/FAF7F2?text=${encodeURIComponent(title)}'"
+                                     alt="${title}" 
+                                     class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+                                <div class="absolute inset-0 bg-gradient-to-t from-jungle/70 via-transparent to-transparent"></div>
+                                <div class="absolute top-4 left-4">
+                                    <span class="px-3.5 py-1.5 rounded-full bg-bone/95 backdrop-blur-sm text-jungle text-xs font-bold shadow-sm inline-flex items-center gap-1.5">
+                                        <i class="fa-solid fa-water text-terracotta"></i>
+                                        ${distance}
+                                    </span>
+                                </div>
+                                <div class="absolute bottom-4 left-6 right-6">
+                                    <p class="text-xs text-goldLight font-medium tracking-wide">${units}</p>
+                                    <h3 class="font-serif text-3xl text-bone font-semibold">${title}</h3>
+                                </div>
+                            </div>
+
+                            <!-- Card Body -->
+                            <div class="p-6 sm:p-7">
+                                <p class="text-sm text-charcoal/80 leading-relaxed mb-5">${shortDesc}</p>
+                                
+                                <!-- Key Amenities Pills -->
+                                <div class="flex flex-wrap gap-2 mb-6">
+                                    ${amenities.map(am => `
+                                        <span class="text-xs bg-bone border border-jungle/10 text-jungle px-3 py-1.5 rounded-full font-medium">
+                                            <i class="fa-solid fa-check text-terracotta mr-1 text-[10px]"></i>${am}
+                                        </span>
+                                    `).join('')}
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Card Actions -->
+                        <div class="px-6 sm:px-7 pb-6 sm:pb-7 pt-2 flex items-center gap-3">
+                            <button onclick="openAccModal('${item.id}')" class="flex-1 py-3 px-4 rounded-xl bg-bone hover:bg-jungle hover:text-bone text-jungle border border-jungle/15 font-semibold text-xs sm:text-sm transition-colors">
+                                ${btnDetails}
+                            </button>
+                            <a href="https://wa.me/${item.whatsapp}?text=${waText}" target="_blank" rel="noopener noreferrer" 
+                               class="flex-1 py-3 px-4 rounded-xl bg-terracotta hover:bg-terracottaDark text-bone font-semibold text-xs sm:text-sm flex items-center justify-center gap-2 transition-colors shadow-sm">
+                                <i class="fa-brands fa-whatsapp text-base"></i>
+                                <span>${btnBook}</span>
+                            </a>
+                        </div>
+                    </article>
+                `;
+            }).join('');
+        }
+
+        // 4. Filter Tabs Controller
+        function filterAccommodations(category) {
+            currentFilter = category;
+            document.querySelectorAll('.filter-tab').forEach(btn => {
+                if (btn.dataset.filter === category) {
+                    btn.classList.remove('bg-sand', 'text-jungle');
+                    btn.classList.add('bg-jungle', 'text-bone', 'shadow-sm');
+                } else {
+                    btn.classList.remove('bg-jungle', 'text-bone', 'shadow-sm');
+                    btn.classList.add('bg-sand', 'text-jungle');
+                }
+            });
+            renderAccommodations();
+        }
+
+        // 5. Accommodation Details Modal
+
+        function openAccModal(id) {
+            const item = accommodationsData.find(a => a.id === id);
+            if (!item) return;
+
+            const title = currentLang === 'es' ? item.title_es : item.title_en;
+            const distance = currentLang === 'es' ? item.distance_es : item.distance_en;
+            const units = currentLang === 'es' ? item.units_es : item.units_en;
+            const fullDesc = currentLang === 'es' ? item.full_es : item.full_en;
+            const amenities = currentLang === 'es' ? item.amenities_es : item.amenities_en;
+
+            document.getElementById('modal-acc-img').src = item.image;
+            document.getElementById('modal-acc-img').alt = title;
+            document.getElementById('modal-acc-badge').textContent = distance;
+            document.getElementById('modal-acc-title').textContent = title;
+            document.getElementById('modal-acc-capacity').textContent = units;
+            document.getElementById('modal-acc-desc').textContent = fullDesc;
+
+            document.getElementById('modal-acc-amenities').innerHTML = amenities.map(am => `
+                <div class="flex items-center gap-2 bg-sand px-3 py-2 rounded-xl">
+                    <i class="fa-solid fa-circle-check text-terracotta text-xs"></i>
+                    <span>${am}</span>
+                </div>
+            `).join('');
+
+            const waText = encodeURIComponent(`Hola La Tortuga Ayampe, vi los detalles de "${item.title_es}" en su web y me gustaría consultar disponibilidad y tarifas.`);
+            const waBtn = document.getElementById('modal-acc-wa');
+            waBtn.href = `https://wa.me/${item.whatsapp}?text=${waText}`;
+            document.getElementById('modal-acc-wa-label').textContent = `WhatsApp (${item.phoneDisplay})`;
+
+            const modal = document.getElementById('acc-modal');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeAccModal() {
+            const modal = document.getElementById('acc-modal');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+            document.body.style.overflow = '';
+        }
+
+        // 6. Availability Search Bar -> Prefilled WhatsApp Message to the Exact Department
+
+        // 7. Interactive 360° Spa Tour Logic
+        const spaZones = [
+            {
+                tag: 'Zona 1 de 3 · Circuito Hidrotermal',
+                title: 'Plataforma Wellness 3 en 1 & Tina Fría',
+                desc: 'Sauna, baño de vapor e hidromasaje exclusivo por reserva, con tina de agua fría y área de exfoliación natural rodeada de jardines.',
+                img: 'https://images.unsplash.com/photo-1544161515-4ab6ce6db874?auto=format&fit=crop&w=2000&q=85'
+            },
+            {
+                tag: 'Zona 2 de 3 · Relajación Profunda',
+                title: 'Sala de Masajes y Terapias Holísticas',
+                desc: 'Ambiente íntimo con aromaterapia orgánica para masajes relajantes y terapéuticos (30/60 min), faciales y reflexología.',
+                img: 'https://images.unsplash.com/photo-1600334089648-b0d9d3028eb2?auto=format&fit=crop&w=2000&q=85'
+            },
+            {
+                tag: 'Zona 3 de 3 · Estética & Cuidado',
+                title: 'Sala de Manicure, Pedicure y Depilación',
+                desc: 'Espacio sereno con luz natural dedicado al cuidado estético de manos y pies, hidratación post-playa y depilación con cera.',
+                img: 'https://images.unsplash.com/photo-1519823551278-64ac92734fb1?auto=format&fit=crop&w=2000&q=85'
+            }
+        ];
+
+        let panOffset = -25; // percentage
+        let isDraggingPano = false;
+        let startX = 0;
+
+        function openSpa360Modal() {
+            const modal = document.getElementById('spa-360-modal');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+            document.body.style.overflow = 'hidden';
+            switchSpaZone(0);
+        }
+
+        function closeSpa360Modal() {
+            const modal = document.getElementById('spa-360-modal');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+            document.body.style.overflow = '';
+        }
+
+        function switchSpaZone(index) {
+            const zone = spaZones[index];
+            document.getElementById('panorama-img').src = zone.img;
+            document.getElementById('pano-zone-tag').textContent = zone.tag;
+            document.getElementById('pano-zone-title').textContent = zone.title;
+            document.getElementById('pano-zone-desc').textContent = zone.desc;
+
+            panOffset = -25;
+            document.getElementById('panorama-track').style.transform = `translateX(${panOffset}%)`;
+
+            document.querySelectorAll('.spa-zone-btn').forEach((btn, idx) => {
+                if (idx === index) {
+                    btn.classList.remove('bg-bone/10', 'text-bone');
+                    btn.classList.add('bg-gold', 'text-jungle');
+                } else {
+                    btn.classList.remove('bg-gold', 'text-jungle');
+                    btn.classList.add('bg-bone/10', 'text-bone');
+                }
+            });
+        }
+
+        // Mouse & Touch Drag for 360 Panorama
+        const panoContainer = document.getElementById('panorama-container');
+        const panoTrack = document.getElementById('panorama-track');
+
+        panoContainer.addEventListener('mousedown', (e) => {
+            isDraggingPano = true;
+            startX = e.clientX;
+        });
+        window.addEventListener('mouseup', () => { isDraggingPano = false; });
+        window.addEventListener('mousemove', (e) => {
+            if (!isDraggingPano) return;
+            const delta = (e.clientX - startX) * 0.08;
+            startX = e.clientX;
+            panOffset = Math.max(-52, Math.min(0, panOffset + delta));
+            panoTrack.style.transform = `translateX(${panOffset}%)`;
+        });
+
+        panoContainer.addEventListener('touchstart', (e) => {
+            isDraggingPano = true;
+            startX = e.touches[0].clientX;
+        }, { passive: true });
+        panoContainer.addEventListener('touchend', () => { isDraggingPano = false; });
+        panoContainer.addEventListener('touchmove', (e) => {
+            if (!isDraggingPano) return;
+            const delta = (e.touches[0].clientX - startX) * 0.1;
+            startX = e.touches[0].clientX;
+            panOffset = Math.max(-52, Math.min(0, panOffset + delta));
+            panoTrack.style.transform = `translateX(${panOffset}%)`;
+        }, { passive: true });
+
+        // 8. Language Toggle (ES / EN)
+        function toggleLanguage() {
+            currentLang = currentLang === 'es' ? 'en' : 'es';
+            document.documentElement.lang = currentLang;
+
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if (translations[currentLang] && translations[currentLang][key]) {
+                    el.textContent = translations[currentLang][key];
+                }
+            });
+
+            renderAccommodations();
+        }
+
+        // 9. Sticky Navbar Scroll Effect & Menus
+        window.addEventListener('scroll', () => {
+            const navbar = document.getElementById('navbar');
+            const logoBadge = document.getElementById('logo-badge');
+            const logosvg = document.getElementById('logosvg')
+            if (window.scrollY > 50) {
+                navbar.classList.add('glass-nav', 'shadow-sm', 'py-3');
+                navbar.classList.remove('text-bone', 'py-4');
+                logoBadge.classList.remove('bg-jungle/40', 'border-bone/40');
+                logoBadge.classList.add('bg-jungle', 'border-jungle');
+                logosvg.classList.add('invert');
+            } else {
+                navbar.classList.remove('glass-nav', 'text-jungle', 'shadow-sm', 'py-3');
+                navbar.classList.add('text-bone', 'py-4');
+                logoBadge.classList.add('bg-jungle/40', 'border-bone/40');
+                logoBadge.classList.remove('bg-jungle', 'border-jungle');
+                logosvg.classList.remove('invert');
+            }
+        });
+
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        }
+
+        function toggleWhatsappMenu() {
+            const menu = document.getElementById('wa-selector-menu');
+            menu.classList.toggle('hidden');
+        }
+
+        function openWhatsappMenu() {
+            const menu = document.getElementById('wa-selector-menu');
+            menu.classList.remove('hidden');
+        }
+
+        function closeWhatsappMenu() {
+            const menu = document.getElementById('wa-selector-menu');
+            menu.classList.add('hidden');
+        }
+
+        function moveExpSlide(btn, step) {
+            const carousel = btn.closest('.exp-carousel');
+            if (!carousel) return;
+
+            const images = (carousel.dataset.images || '')
+                .split('|')
+                .map(s => s.trim())
+                .filter(Boolean);
+
+            if (images.length === 0) return;
+
+            const currentIdx = parseInt(carousel.dataset.index || '0', 10);
+            const nextIdx = (currentIdx + step + images.length) % images.length;
+
+            carousel.dataset.index = nextIdx;
+
+            const img = carousel.querySelector('.exp-img');
+            const counter = carousel.querySelector('.exp-counter');
+
+            if (img) {
+                img.style.opacity = '0.35';
+                img.src = images[nextIdx];
+                img.onload = () => {
+                    img.style.opacity = '1';
+                };
+            }
+
+            if (counter) {
+                counter.textContent = `${nextIdx + 1} / ${images.length}`;
+            }
+        }
+
+        // Set default check-in/out dates to tomorrow & +3 days for smooth UX
+        window.addEventListener('DOMContentLoaded', () => {
+            const today = new Date();
+            const tomorrow = new Date(today);
+            tomorrow.setDate(tomorrow.getDate() + 1);
+            const checkout = new Date(today);
+            checkout.setDate(checkout.getDate() + 4);
+
+            const formatDate = (d) => d.toISOString().split('T')[0];
+            const checkinEl = document.getElementById('checkin');
+            const checkoutEl = document.getElementById('checkout');
+
+            checkinEl.min = formatDate(today);
+            checkinEl.value = formatDate(tomorrow);
+            checkoutEl.min = formatDate(tomorrow);
+            checkoutEl.value = formatDate(checkout);
+
+            renderAccommodations();
+        });
+
+
+function handleAvailabilitySubmit(event) {
+    event.preventDefault();
+
+    const checkin = document.getElementById("checkin").value;
+    const checkout = document.getElementById("checkout").value;
+    const guests = document.getElementById("guests").value;
+
+    // WhatsApp de reservas de alojamientos
+    const phone = "593993834825";
+
+    // Validar fechas
+    if (!checkin || !checkout || checkout <= checkin) {
+        alert("Por favor, selecciona fechas de llegada y salida válidas.");
+        return;
+    }
+
+    // Formatear fechas
+    const formatDate = (date) => {
+        const [year, month, day] = date.split("-");
+        return `${day}/${month}/${year}`;
+    };
+
+    // Construir mensaje
+    const message = `¡Hola! Quisiera consultar disponibilidad y tarifas en La Tortuga Ayampe.
+
+· Fecha de llegada: ${formatDate(checkin)}
+· Fecha de salida: ${formatDate(checkout)}
+· Cantidad de noches: ${Math.round(
+        (new Date(checkout + "T00:00:00") -
+         new Date(checkin + "T00:00:00")) / 86400000
+    )}
+· Huéspedes: ${guests}
+
+¿Podrían informarme el precio y la disponibilidad? ¡Muchas gracias!`;
+
+    // Construir enlace de WhatsApp
+    const whatsappURL =
+        `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
+
+    // Redirigir a WhatsApp
+    window.location.href = whatsappURL;
+}
+
+    
+    </script>
+</body>
+</html>
